@@ -5,7 +5,6 @@
 * umask 021 - new files start with 756 (sic!)
 
 * d/-/. - dir/regular file/script
-* current user, group, everyone (else?)
 
 * r - readable
 * w - writeable
@@ -13,7 +12,7 @@
 * s - SUID, get permissions of the file creator when run
 
 * chown kosma foo.txt - modify user ownership
-* chgrp gang foo.txt - modify user ownership
+* chgrp gang foo.txt - modify group ownership
 * chown kosma:gang foo.txt - both at the same time 
 
 ## chmod 
@@ -29,6 +28,10 @@
 * effective user ID (of the file/process that was run )
 * real user ID (of the user that launched the process)
 
-## Note
+## Process permissions
 
-* continue on 7. of chapter Permissions!
+* effective user ID - 
+* real user ID - 
+* saved user ID -
+* 
+

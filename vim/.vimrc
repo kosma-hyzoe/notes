@@ -11,10 +11,6 @@ set backspace=indent,eol,start
 " Be a grown-ass adult, use the mouse if you need to
 set mouse=a
 
-" Spellchecking
-set spell spelllang=en_us
-" Syntax highlighting
-syntax on 
 
 " Have the prompt 5 lines above the file ends when scrolling 
 set scrolloff=5 

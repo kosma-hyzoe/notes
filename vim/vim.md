@@ -1,5 +1,17 @@
 # Vim
 
+## Misc/Temp
+
+* __:32__ - go to line 32
+* alt+movement - back to normal mode
+* __ctrl + g__ - display position info
+* __5gg__ (or __5G__) - move to the beginning of line 5
+* __$G__(or just __G__) - go to the last line
+* __ctrl + f/b__ page forward/backward
+* __0/^__ - move to the beginning of line
+* __x/X__ - delete the next/previous character
+* __2d3w__ - delete the 3w motion 
+
 ## Useful combinations
 
 * ci) - change inside curly brackets (also di} for delete etc.)

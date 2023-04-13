@@ -1,7 +1,5 @@
 source ~/.vimrc
 
-
-"" -- Options I haven't mastered yet --
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
@@ -13,12 +11,15 @@ set ideajoin
 "" map \r to the Reformat Code action
 map \r <Action>(ReformatCode)
 
-"" Map <leader>d to start debug
+"" use :actionlist to check search actions
 map <leader>d <Action>(Debug)
 
-"" Map \b to toggle the breakpoint on the current line
-map \b <Action>(ToggleLineBreakpoint)
-
-
-" Find more examples here:
+map \j <Action>(JoinLines)
+nnoremap <c-z> <Action>(ToggleDistractionFreeMode)
+map <c--> <Action>(SplitHorizontally)
+map <c-\> <Action>(SplitVertically)
+map <c-t> <Action>(ActivateTerminalToolWindow)
 set clipboard+=ideaput
+
+
+
