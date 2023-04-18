@@ -5,6 +5,15 @@
 * `read -p "some prompt" bar`
 * `rm -f $0 # autodelete the script`
 * `my_array=("foo" "bar")`
+* `alias` - list all aliases
+* `cat << EOF` - create a temp file (HereDoc)
+* `wc <<< "redirect a temp string"`
+
+## Pipes and redirects
+
+* redirections redirect file streams, pipes redirect output trees
+*  `./install_package.sh > file.txt 2>&1` is an equivalent of
+   `./install_package.sh > file.txt 2> file.txt` 
 
 ## Operators
 
@@ -133,3 +142,37 @@ do
     ((counter++))
 done
 ```
+
+## Color selection
+
+```bash
+green='\e[32m'
+blue='\e[34m'
+clear='\e[0m'
+
+ColorGreen() {
+  echo -ne $green$1$clear
+}
+ColorBlue() {
+  echo -ne $blue$1$clear
+}
+
+echo -ne $(ColorBlue 'Some text here')
+```
+
+## Menus
+
+```bash
+read a
+case $a in
+1) memory_check ; menu ;;
+2) cpu_check ; menu ;;
+3) tcp_check ; menu ;;
+4) kernel_check ; menu ;;
+5) all_checks ; menu ;;
+0) exit 0 ;;
+*) echo -e $red"Wrong option."$clear;
+WrongCommand;;
+esac
+```
+
