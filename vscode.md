@@ -1,6 +1,8 @@
 # VS Code
 
-##
+## Shortcuts
+
+* shift+alt+f - reformat file
 
 
 ## Todo
