@@ -4,6 +4,7 @@
 
 * f5 - debug/next debug breakpoint
 * ctrl+f5 - run without debugging
+* shift+f5 - stop debugging
 * ctrl+shift+b - build
 
 ## Common shortcuts
@@ -24,12 +25,16 @@
 
 ### Free shortcuts
 
+* ctrl+z
 * ctrl+s
 * ctrl+shift+s
 
 ### Navigation
 
+* ctrl+b - hide side panel
 * alt+t - focus terminal
+* ctrl+alt+t - new terminal
+* alt+n - switch terminals
 * alt+e - focus editor
 * alt+'-'- split down
 * alt+/ - split right
@@ -47,6 +52,7 @@
 * quick settings editing
 * bigger/more visible vim commandline
 
-### Jetbrains trans
+##  Todo
 
-* ctrl+click
+* trigger type hint, lint hint
+* auto build on launch?

@@ -7,7 +7,7 @@
 
 ## Datatypes
 
-  ### Bool
+### Bool
 
 ```c
 /* bool */
@@ -59,4 +59,10 @@ blueColor = blue;
 * ~ - flip bits
 * `>>/<<`  - move bits
 
-## 
+## Strings
+
+* strlen()
+* strcpy(dest, src), strncpy(dest, src, len)
+* strcat(dest, src)
+* strchr() - search string for a specified character
+* strstr() - returns pointer tho where substring is found in string
