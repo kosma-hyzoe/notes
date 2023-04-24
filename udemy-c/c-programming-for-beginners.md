@@ -64,5 +64,5 @@ blueColor = blue;
 * strlen()
 * strcpy(dest, src), strncpy(dest, src, len)
 * strcat(dest, src)
-* strchr() - search string for a specified character
-* strstr() - returns pointer tho where substring is found in string
+* strchr()/strrchr() - search string for a specified character
+* strstr()/strrstr() - returns pointer tho where substring is found in string
