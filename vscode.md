@@ -1,5 +1,11 @@
 # VS Code
 
+## C/C++
+
+* f5 - debug/next debug breakpoint
+* ctrl+f5 - run without debugging
+* ctrl+shift+b - build
+
 ## Common shortcuts
 
 ### Refactoring
@@ -9,6 +15,7 @@
 
 ### Navigation
 
+* ctrl+shift+t - reopen closed tab
 * ctrl+tab - switch active editors
 * alt+1...9 - switch editor windows by position
 * ctrl+1/2/3/4 - navigate editor quarters

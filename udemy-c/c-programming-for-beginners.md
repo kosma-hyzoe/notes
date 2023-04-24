@@ -56,5 +56,7 @@ blueColor = blue;
 * & - bitwise AND, copies the bit if both operands have it
 * | - bitwise OR
 * ^ - XOR
-* ~
-* `>>/<<`  -
+* ~ - flip bits
+* `>>/<<`  - move bits
+
+## 
