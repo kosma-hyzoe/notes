@@ -1,9 +1,10 @@
-## Editing text
+# Editing text
 
 ## Standard in, out and error
 
 * 0, 1, 2 - stdin, stdout, sdterr
-```
+
+```bash
 ls /error/evoking/path 2> hello.txt # redirect stderr
 # redirect stderr and stdout
 ls /err > hello.txt 2>&1
@@ -11,6 +12,7 @@ ls /err &> hello.txt
 # just get rid of stderr
 ls /err &> /dev/null
 ```
+
 ## Misc stdin/stdout processing
 
 * head/tail

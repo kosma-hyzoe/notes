@@ -13,7 +13,7 @@
 
 * redirections redirect file streams, pipes redirect output trees
 *  `./install_package.sh > file.txt 2>&1` is an equivalent of
-   `./install_package.sh > file.txt 2> file.txt` 
+   `./install_package.sh > file.txt > file.txt` 
 
 ## Operators
 

@@ -18,7 +18,7 @@
 * you can use `# comments` to mark commands for reverse search
 * `alias foobar='ls -la'`/`unalias foobar`
 
-## Session
+- [ ] Session
 
 * ctrl+alt+fn keys for switching virtual terminals
 * `systemctl stop/start gdm`, `telinit 3/5`
