@@ -16,6 +16,8 @@
 
 ### Navigation
 
+* ctrl+shift+t - reopen closed editor
+* ctrl+shift+`[` - fold/unfold(`]`) code block
 * ctrl+shift+t - reopen closed tab
 * ctrl+tab - switch active editors
 * alt+1...9 - switch editor windows by position
@@ -25,6 +27,7 @@
 
 ### Free shortcuts
 
+* ctrl+shift+n
 * ctrl+z
 * ctrl+s
 * ctrl+shift+s
@@ -32,21 +35,23 @@
 ### Navigation
 
 * ctrl+b - hide side panel
+
+* alt+e - focus editor
+* alt+f - focus folder
 * alt+t - focus terminal
 * ctrl+alt+t - new terminal
 * alt+n - switch terminals
-* alt+e - focus editor
 * alt+'-'- split down
 * alt+/ - split right
 * alt+hjkl - move selection left/down/up/right
 
-## Todo
+## Misc 
 
-* spell check
+* ctrl+n - quickfix
+* alt+i inspect active file
 
 ### Vim
 
-* jumping files, terms > editor
 * jetbrains style refactoring
 * git diff
 * quick settings editing
@@ -56,3 +61,6 @@
 
 * trigger type hint, lint hint
 * auto build on launch?
+* spell check
+* revise disabled vim keys
+* run debug/run in a preconfigured tmux ses
