@@ -1,4 +1,4 @@
-# VS Code
+[#](#) VS Code
 
 ## C/C++
 
@@ -45,7 +45,7 @@
 * alt+/ - split right
 * alt+hjkl - move selection left/down/up/right
 
-## Misc 
+## Misc
 
 * ctrl+n - quickfix
 * alt+i inspect active file
@@ -57,7 +57,7 @@
 * quick settings editing
 * bigger/more visible vim commandline
 
-##  Todo
+## Todo
 
 * trigger type hint, lint hint
 * auto build on launch?
