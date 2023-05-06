@@ -2,15 +2,15 @@
 
 ## Misc/Temp
 
-* __:32__ - go to line 32
+* **:32** - go to line 32
 * alt+movement - back to normal mode
-* __ctrl + g__ - display position info
-* __5gg__ (or __5G__) - move to the beginning of line 5
-* __$G__(or just __G__) - go to the last line
-* __ctrl + f/b__ page forward/backward
+* **ctrl + g** - display position info
+* **5gg** (or **5G**) - move to the beginning of line 5
+* **$G**(or just **G**) - go to the last line
+* **ctrl + f/b** page forward/backward
 * 0/^ - move to the beginning of line
-* __x/X__ - delete the next/previous character
-* __2d3w__ - delete the 3w motion 
+* **x/X** - delete the next/previous character
+* **2d3w** - delete the 3w motion 
 
 ## Useful combinations
 
@@ -46,7 +46,7 @@
 
 ## Commands
 
-% - apply to whole file
+* % - apply to whole file
 * g& - run the previously run command on the whole file(i.e. substitution)
 * earlier 10m - "go back in time", 10 minutes
 
@@ -65,7 +65,7 @@
 * ZQ - force quit
 * ZZ - quit
 * :x - :wq equivalent
-^ 
+
 * U - undo all changes
 * ctrl+g - display position info
 * alt+normal mode command - enter normal mode 

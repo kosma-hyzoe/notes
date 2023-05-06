@@ -55,8 +55,8 @@ b=${letters:0:2}
 [[ $string1 == $string2 ]]
 [[ $string1 != $string2 ]]
 [[ $string < $string1 ]] # sorts before string1 lexicographically
-[[ -z $string1]] # is empty
-[[ -n $string1]] # is not empty
+[[ -z $string1 ]] # is empty
+[[ -n $string1 ]] # is not empty
 
 ```
 

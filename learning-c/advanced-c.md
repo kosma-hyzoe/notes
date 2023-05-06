@@ -3,6 +3,7 @@
 ## Todo
 
 * elaborate on storage classes
+* section 3 beginners: linker errors, runtime errors, logic errors
 
 ## Storage classes
 
@@ -42,3 +43,26 @@ int main() {
 
 int count = 0; // external variable definition
 ```
+
+## Advanced Data Types
+
+* const is sometimes preferred to define cause it's type-checked?
+* `typedef char *String` - define type `String` equivalent to `char *`
+* typedefs are 'bad' for structs, good for casting
+* variable length arrays are not based according to Torvalds
+
+Flexible array members needs to be allocated dynamically.
+Less allocations, but debatable whether it's good practice...
+
+```c
+// sizeof(struct s) ignores the flexible array member
+sptr = malloc(sizeof(struct s) + s * sizeof(int));
+```
+
+```c
+`#ifdef __STC_NO_VLA__` 
+  printf("VLA not supported\n");
+#endifdef
+```
+
+## 

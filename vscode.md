@@ -1,4 +1,4 @@
-[#](#) VS Code
+# VS Code
 
 ## C/C++
 
@@ -8,6 +8,11 @@
 * ctrl+shift+b - build
 
 ## Common shortcuts
+
+### Inspection
+
+* ctrl+'.' - quick fix
+* ctrl+shift+space - trigger parameter hints
 
 ### Refactoring
 
@@ -27,6 +32,7 @@
 
 ### Free shortcuts
 
+* ctrl+n?
 * ctrl+shift+n
 * ctrl+z
 * ctrl+s
@@ -45,10 +51,6 @@
 * alt+/ - split right
 * alt+hjkl - move selection left/down/up/right
 
-## Misc
-
-* ctrl+n - quickfix
-* alt+i inspect active file
 
 ### Vim
 
