@@ -65,4 +65,19 @@ sptr = malloc(sizeof(struct s) + s * sizeof(int));
 #endifdef
 ```
 
-## 
+### Designated initializers
+
+`int a[6] = {[4] = 29, [2] = 15};` or `int a[3] = {[4]29, [2]15}`
+`int a[] = {[0 ... 9] = 1, [10 ... 99]= 2}`
+
+## Type Qualifiers
+
+* declaring constants with `static const` saves the hassle of differentiation
+  between declaration and definition, but copies the data across all the files
+* volatile - "suppress optimization, this will be changed 'unexpectedly'". for:
+  * memory-mapped peripheral registers
+  * global variables modified by an interrupt service routine
+  * global vars accessed by multiple task within a multi-threaded app
+* const and volatile is NOT mutually exclusive!
+* restrict - "this pointer is the only reference to that value thru its scope"
+  * `int * restrict intPtr;`
