@@ -95,5 +95,7 @@ int flags = 303;
 flags = flags & MASK; 
 // turn on the bit at position 2, leave the rest unchanged
 flags = flags | MASK;
-
+if ((flags & MASK) == MASK) printf("foobar\n"); // check if mask bit is on
 ```
+
+* XOR to turn off if on and vice versa
