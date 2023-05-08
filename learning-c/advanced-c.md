@@ -74,10 +74,26 @@ sptr = malloc(sizeof(struct s) + s * sizeof(int));
 
 * declaring constants with `static const` saves the hassle of differentiation
   between declaration and definition, but copies the data across all the files
-* volatile - "suppress optimization, this will be changed 'unexpectedly'". for:
+* volatile - "suppress optimization, this will be changed 'unexpectedly'". For:
   * memory-mapped peripheral registers
   * global variables modified by an interrupt service routine
   * global vars accessed by multiple task within a multi-threaded app
 * const and volatile is NOT mutually exclusive!
 * restrict - "this pointer is the only reference to that value thru its scope"
   * `int * restrict intPtr;`
+
+## Bit Manipulation
+
+### Bitmasks
+
+* bitmask - data used for bitwise operations
+
+```c
+#define MASK 2 // binary 0b10
+int flags = 303;
+// check and use only the bit at 2nd position, rest is 'masked'
+flags = flags & MASK; 
+// turn on the bit at position 2, leave the rest unchanged
+flags = flags | MASK;
+
+```

@@ -161,16 +161,16 @@ struct date *todayp = &today;
 (*todayp).month = 3;
 todayp->month = 4;
 ```
+
 ## Files
 
 * w, a, r - write, append, read
-* + - rw, create if doesnt exist
-
+* `+` - rw, create if it doesn't exist
 
 * `rename()`, `remove()` - returns 0/1
 * getc() - fgetc() with macros
 * rewind() - place position at the beginning
 * fgets():
-	* read until `'\n'` or nchars-1
-	* retains the `'\n'`
-	* returns NULL if EOF, else char \*
+  * read until `'\n'` or nchars-1
+  * retains the `'\n'`
+  * returns NULL if EOF, else char \*
