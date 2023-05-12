@@ -172,16 +172,99 @@ union myUnion u = {.f = 3.14};
 
 * deletes comments, includes stuff, expands macros
 * `#ifdef`/`#ifndef` are short for `#if defined(foo)`/`#if !defined(foo)`
+* `#undef`
+* `#pragma poison, dependency, system header, once, warning, message, error`
+* `#pragma line`
 
 ```c
-// gcc -D MY_MACRO=1 myprogram.c -o myprogram
-int main(){ }
+// gcc -DMY_MACRO=1 myprogram.c -o myprogram
+int main() {
     #ifdef MY_MACRO
         printf("MY_MACRO is defined.\n");
         #if MY_MACRO == 1 && FOO == "BAR"
             printf("It's equal to 1.\n");
         #endif
     #endif
-#if MY_MACRO == 1
-  printf
+}
 ```
+
+## Macros
+
+* shouldn't use captial letters for macro function names
+* `#define OP printf("Now I am become Death, the destroyer of worlds\n")`
+* faster when called multiple times, but allocate more spaces than functions
+* don't care about types
+* symbolic constants vs function macros
+* what does `#define FOO` do?
+* `##` operator will create a new token by concatenating the arguments.
+* `#` creates a constant string `#define str(x) # x`
+* `__FILE__`, `__LINE__`
+* `__func__`
+* `__DATE__`, `__STDC__`, `__TIME__`
+
+```c
+#define PRNT(a,b) \
+  printf("foo, %d\n", a); \
+  printf("bar, %d\n", n);
+#define CIRCLE_AREA(x) ((PI) * (X) * (X))
+#define Warning(...) fprintf(stderr, __VA_ARGS__)
+// non-syntax macros
+#define UpTo(i, n) for ((i) = 0; (i) < (n); (i)++)
+
+int main()
+{
+  // ? int area = CIRCLE_AREA 5;
+  int area = CIRCLE_AREA(5*2);
+}
+```
+
+## Debugging and code analysis
+
+### gcc
+
+* `-Wall` - all warnings
+* `-E`, `-S` - output the preprocessing stage / assembly code
+* `-l m` - link math
+* `-g` - debugging info
+* `-v` - verbose`
+* `-funsigned-char`
+* `-Werror` - treat all warnings as errors
+* `gcc main.c @file-with-flags`
+* `gcc -Q--help=optimizers` - show optimizers on all stages
+* Optimization flags:
+  * O - no optimization, faster compilation
+  * O1, O2, O3 - optimize, more or less
+  * Ofast - disregard standars and utilize O3
+  * Og - optimize for debuging
+* Uses PATH, CPATH (includes) and LIBRARY_PATH (link libs)
+* `nm` - check if function is defined in an object file
+* `ldd` - display shared libs of an executable
+
+### gdb
+
+* `list 9`\`l` - 5 lines before and after line 9
+* `print sum`/`p sum`
+* `print main::i`
+* `set var main::i=0`
+* `p x i` - print in hexadecimal
+* `break 10`/ `main`/ `foo.c`/ `foo.c:main`
+* `s`/ `s 5` / `step` - 'step next'?
+* `c` - continue
+* `clear 5` - clear breakpoint
+* `bt` - show stack trace
+* `frame`
+* `info args`
+
+### core files
+
+* `ulimit -c unlimited` - enable writing core files
+* `gdb a.out core`
+
+### profiling (dynamic analysis)
+
+* measurers memory usage, time complexity/efficiency, usage of particular
+  instructions, frequency and duration of function calls
+* `gprof test hello.out > analysis.txt`
+* `valgrind --leak-check=yes ./test`
+* static analysis - examine the source code before running.
+  example tools are CodeSonar and Coverity
