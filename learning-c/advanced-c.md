@@ -226,7 +226,7 @@ int main()
 * `-E`, `-S` - output the preprocessing stage / assembly code
 * `-l m` - link math
 * `-g` - debugging info
-* `-v` - verbose`
+* `-v` - verbose
 * `-funsigned-char`
 * `-Werror` - treat all warnings as errors
 * `gcc main.c @file-with-flags`
@@ -242,12 +242,12 @@ int main()
 
 ### gdb
 
-* `list 9`\`l` - 5 lines before and after line 9
+* `list 9` \ `l` - 5 lines before and after line 9
 * `print sum`/`p sum`
 * `print main::i`
 * `set var main::i=0`
 * `p x i` - print in hexadecimal
-* `break 10`/ `main`/ `foo.c`/ `foo.c:main`
+* `break 10` / `main` / `foo.c` / `foo.c:main`
 * `s`/ `s 5` / `step` - 'step next'?
 * `c` - continue
 * `clear 5` - clear breakpoint
@@ -268,3 +268,4 @@ int main()
 * `valgrind --leak-check=yes ./test`
 * static analysis - examine the source code before running.
   example tools are CodeSonar and Coverity
+  
