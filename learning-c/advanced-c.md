@@ -11,6 +11,11 @@
 * the extra exes
 * compiler flafs / makefiles
 * debugger
+* symbolic constants vs function macros?
+* what does empty `#define FOO` do?
+* stuff under `## Preprocessor`
+* macros `##` and `#` string operators
+* revise Debugging and code analyis
 
 ## Bitmasks
 
@@ -271,14 +276,27 @@ int main() {
 
 * deletes comments, includes stuff, expands macros
 * `#ifdef`/`#ifndef` are short for `#if defined(foo)`/`#if !defined(foo)`
-* `gcc -DMY_MACRO=2 myprogram.c -o myprogram` to define macro `MY_MACRO`
+* `#undef`
+* `#pragma poison, dependency, system header, once, warning, message, error`
+* `#pragma line`
 
 ## Macros
+
+* `#define OP printf("Now I am become Death, the destroyer of worlds\n")`
+* faster when called multiple times, but allocate more spaces than functions
+* non-syntax macros: `#define UpTo(i, n) for ((i) = 0; (i) < (n); (i)++)`
+* `gcc -DMY_MACRO=2 myprogram.c -o myprogram` to define macro `MY_MACRO`
+
+Common built-in macros:
+
+* `__FILE__`, `__LINE__`
+* `__func__`
+* `__DATE__`, `__STDC__`, `__TIME__`
 
 Take a simple macro: `#define MIN(a, b) ((a) < (b) ? (a) : (b))`.
 Extra parentheses state "evaluate expr. beofre messing w/ it", but this
 might not be enough. The example below is safer for side effects, i.e. when
-why call `MIN(get_random_number(), b)`
+you'd call `MIN(get_random_number(), b)`
 
 ```c
 #define SAFE_MIN(a, b) ({ \
@@ -288,7 +306,6 @@ why call `MIN(get_random_number(), b)`
                         })
 })
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
 #define INRANGE(x, a, b) ((a) <= (x) && (x) <= (b))
@@ -307,6 +324,57 @@ why call `MIN(get_random_number(), b)`
     } while (0)
 ```
 
+## Debugging and code analysis
+
+### gcc
+
+* `-Wall` - all warnings
+* `-E`, `-S` - output the preprocessing stage / assembly code
+* `-l m` - link math
+* `-g` - debugging info
+* `-v` - verbose
+* `-funsigned-char`
+* `-Werror` - treat all warnings as errors
+* `gcc main.c @file-with-flags`
+* `gcc -Q--help=optimizers` - show optimizers on all stages
+* Optimization flags:
+  * O - no optimization, faster compilation
+  * O1, O2, O3 - optimize, more or less
+  * Ofast - disregard standars and utilize O3
+  * Og - optimize for debuging
+* Uses PATH, CPATH (includes) and LIBRARY_PATH (link libs)
+* `nm` - check if function is defined in an object file
+* `ldd` - display shared libs of an executable
+
+### gdb
+
+* `list 9` \ `l` - 5 lines before and after line 9
+* `print sum`/`p sum`
+* `print main::i`
+* `set var main::i=0`
+* `p x i` - print in hexadecimal
+* `break 10` / `main` / `foo.c` / `foo.c:main`
+* `s`/ `s 5` / `step` - 'step next'?
+* `c` - continue
+* `clear 5` - clear breakpoint
+* `bt` - show stack trace
+* `frame`
+* `info args`
+
+### core files
+
+* `ulimit -c unlimited` - enable writing core files
+* `gdb a.out core`
+
+### profiling (dynamic analysis)
+
+* measurers memory usage, time complexity/efficiency, usage of particular
+  instructions, frequency and duration of function calls
+* `gprof test hello.out > analysis.txt`
+* `valgrind --leak-check=yes ./test`
+* static analysis - examine the source code before running.
+  example tools are CodeSonar and Coverity
+
 ## WIP
 
 ### Files
@@ -324,10 +392,8 @@ why call `MIN(get_random_number(), b)`
   * retains the `'\n'`
   * returns NULL if EOF, else `char *`
 
-## Misc
+### Misc
 
 * abort(), atexit() - define what happens on 1 and 0 exits
 * qsort() - sort array
 * system() - use system commands
-
-
