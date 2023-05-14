@@ -1,4 +1,4 @@
-# C
+# Learning C
 
 ## Neat code bits
 
