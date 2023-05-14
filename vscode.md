@@ -1,5 +1,13 @@
 # VS Code
 
+## Tips
+
+* `ctrl+shift+.`/control pallete +`@`- find symbols
+* coloring terminals
+* remote repositories/github repositories extensions
+* `Configure user snippers`
+* `Find all references`
+
 ## C/C++
 
 * f5 - debug/next debug breakpoint
@@ -66,3 +74,16 @@
 * spell check
 * revise disabled vim keys
 * run debug/run in a preconfigured tmux ses
+
+## Extensions
+
+### Better Comments
+
+```js
+/**
+ * @param {string} path
+ * ! danger, does not work
+ * TODO make it work better
+*/
+
+```
