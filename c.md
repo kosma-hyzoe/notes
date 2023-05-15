@@ -9,13 +9,11 @@
 * variadic funcs
 * section 4 beginners: linker errors, runtime errors, logic errors
 * the extra exes
-* compiler flafs / makefiles
-* debugger
+* compiler flags / makefiles
 * symbolic constants vs function macros?
 * what does empty `#define FOO` do?
 * stuff under `## Preprocessor`
 * macros `##` and `#` string operators
-* revise Debugging and code analyis
 
 ## Bitmasks
 
@@ -376,6 +374,38 @@ you'd call `MIN(get_random_number(), b)`
   example tools are CodeSonar and Coverity
 
 ## WIP
+
+#### Double pointers
+
+* Used when needed to change the vaue of the pinter passed to a function as the
+  function argument. simulate pass by rererence(?)
+
+```c
+/* these functions will essentially do the same */
+void ipp_append(int **ipp) { (**ipp)++; }
+void ip_append(int *ip) { (*ip)++; }
+/* these won't */
+void str_append(char *s) { printf("In function scope: %s\n", ++s); }
+void strp_append(char **sp) { printf("In function scope: %s\n", ++(*sp)); }
+/* these two won't work */
+void str_alloc(char *s) { s = malloc(127); };
+void indrct_pstr_alloc(char *s) {*(&s) = malloc(127); }
+/* this one will */
+void pstr_alloc(char **sp) {*sp = malloc(127); }
+
+```
+
+#### Function pointers
+
+
+```c
+/* define a function pointer typedef named func_ptr */
+typedef int (*func_ptr)(int, int);
+/* is already derefrenced within the declaration */
+void ipp_append(int **ip) { (*ip)++ ;}
+/* `&` is allowed, but not required. equivalent of `*str`/`str[0]` */
+void (*fp)(int **) = &ipp_append;
+```
 
 ### Files
 
