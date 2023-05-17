@@ -6,12 +6,11 @@
 
 ## TODO
 
-* variadic funcs
+* -L and -l compile flags
 * section 4 beginners: linker errors, runtime errors, logic errors
-* the extra exes
-* compiler flags / makefiles
+* the extra exes @ 04/00
+* makefiles
 * symbolic constants vs function macros?
-* what does empty `#define FOO` do?
 * stuff under `## Preprocessor`
 * macros `##` and `#` string operators
 
@@ -28,17 +27,7 @@ if (flags & OPTION_A); // returns 1 if bit n is off, 2 to nth if on
 
 flags |= OPTION_B; // enable option B
 flags &= ~OPTION_C; // disable option C
-flags ^= OPTION_B; //
-
-```c
-#define MASK 3 // binary 0b10
-int flags = 304;
-// check and use only the bit at 3nd position, rest is 'masked'
-flags = flags & MASK;
-// turn on the bit at position 3, leave the rest unchanged
-flags = flags | MASK;
-if ((flags & MASK) == MASK) printf("foobar\n"); // check if mask bit is on
-flags
+flags ^= OPTION_B; // turn off if on, on if off
 ```
 
 ## Data types
@@ -54,7 +43,38 @@ flags
 * `&arrptr[1]` is equivalent to `arrptr+1`
 * `void* vp = &foo;` - a pointer that can point to anything.
   needs to be cast to get value `printf("%d\n", *(int *)vptr)`
-  `ar[i]` is equivalnt to `*(ar+i)`
+* `ar[i]` is equivalnt to `*(ar+i)`
+
+#### double pointers
+
+* Used when needed to change the vaue of the pinter passed to a function as the
+  function argument. simulate pass by rererence(?)
+
+```c
+/* these functions will essentially do the same */
+void ipp_append(int **ipp) { (**ipp)++; }
+void ip_append(int *ip) { (*ip)++; }
+/* these won't */
+void str_append(char *s) { printf("In function scope: %s\n", ++s); }
+void strp_append(char **sp) { printf("In function scope: %s\n", ++(*sp)); }
+/* these two won't work */
+void str_alloc(char *s) { s = malloc(127); };
+void indrct_pstr_alloc(char *s) {*(&s) = malloc(127); }
+/* this one will */
+void pstr_alloc(char **sp) {*sp = malloc(127); }
+
+```
+
+#### function pointers
+
+```c
+/* define a function pointer typedef named func_ptr */
+typedef int (*func_ptr)(int, int);
+/* is already derefrenced within the declaration */
+void ipp_append(int **ip) { (*ip)++ ;}
+/* `&` is allowed, but not required. equivalent of `*str`/`str[0]` */
+void (*fp)(int **) = &ipp_append;
+```
 
 ### structs
 
@@ -306,7 +326,7 @@ you'd call `MIN(get_random_number(), b)`
 
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
-#define INRANGE(x, a, b) ((a) <= (x) && (x) <= (b))
+#define BETWEEN(x, a, b) ((a) <= (x) && (x) <= (b))
 #define DEFAULT(a, b)  (a) = (a) ? (a) : (b)
 #define TIMEDIFF(t1, t2) ((t1.tv_sec-t2.tv_sec)*1000 + \
                 (t1.tv_nsec-t2.tv_nsec)/1E6)
@@ -375,38 +395,6 @@ you'd call `MIN(get_random_number(), b)`
 
 ## WIP
 
-#### Double pointers
-
-* Used when needed to change the vaue of the pinter passed to a function as the
-  function argument. simulate pass by rererence(?)
-
-```c
-/* these functions will essentially do the same */
-void ipp_append(int **ipp) { (**ipp)++; }
-void ip_append(int *ip) { (*ip)++; }
-/* these won't */
-void str_append(char *s) { printf("In function scope: %s\n", ++s); }
-void strp_append(char **sp) { printf("In function scope: %s\n", ++(*sp)); }
-/* these two won't work */
-void str_alloc(char *s) { s = malloc(127); };
-void indrct_pstr_alloc(char *s) {*(&s) = malloc(127); }
-/* this one will */
-void pstr_alloc(char **sp) {*sp = malloc(127); }
-
-```
-
-#### Function pointers
-
-
-```c
-/* define a function pointer typedef named func_ptr */
-typedef int (*func_ptr)(int, int);
-/* is already derefrenced within the declaration */
-void ipp_append(int **ip) { (*ip)++ ;}
-/* `&` is allowed, but not required. equivalent of `*str`/`str[0]` */
-void (*fp)(int **) = &ipp_append;
-```
-
 ### Files
 
 * r - read, must exist
@@ -421,6 +409,18 @@ void (*fp)(int **) = &ipp_append;
   * read until `'\n'` or `nchars-1`
   * retains the `'\n'`
   * returns NULL if EOF, else `char *`
+
+### Static library
+
+* libraries are groups of headers (.h) and implementations (.c)
+* static linking(.a, .lib) - produce archives. all library contents are copied to the ex.
+  file. faster, but heavier on disk space and memory use and slower to recompile.
+  created with `ar`, stored ad `/usr/local/lib`
+
+* dynamic linking(shared object libraries, .so) - compiled separately. no need to
+  recompile after software updates. linkied with `ld`
+* convention is to name files `lib_$(foo).so`
+* `lld` - list all shared libraries of an executable
 
 ### Misc
 
