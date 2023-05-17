@@ -6,6 +6,7 @@
 
 ## TODO
 
+* jumps
 * -L and -l compile flags
 * section 4 beginners: linker errors, runtime errors, logic errors
 * the extra exes @ 04/00
@@ -327,6 +328,7 @@ you'd call `MIN(get_random_number(), b)`
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
 #define BETWEEN(x, a, b) ((a) <= (x) && (x) <= (b))
+#define RAND_BETWEEN(min, max) (min + (rand() / (RAND_MAX / (max - min))))
 #define DEFAULT(a, b)  (a) = (a) ? (a) : (b)
 #define TIMEDIFF(t1, t2) ((t1.tv_sec-t2.tv_sec)*1000 + \
                 (t1.tv_nsec-t2.tv_nsec)/1E6)
@@ -393,6 +395,57 @@ you'd call `MIN(get_random_number(), b)`
 * static analysis - examine the source code before running.
   example tools are CodeSonar and Coverity
 
+## Library linking and loading
+
+### Static linking
+
+* Produces archives(.a, .lib). All library contents are copied to the ex.
+  file. Faster, but heavier on disk space and memory use and slower to
+  recompile. Created with `ar`, stored at `*/lib`.
+
+### Dynamic Linking
+
+* dynamic linking(shared object libraries, .so) - compiled separately. no need
+  to recompile after software updates. linked with `ld`
+* convention is to name files `lib_$(foo).so`
+* `lld` - list all shared libraries of an executable
+
+### Dynamic loading
+
+* Load a lib at runtime. program behavior might change if lib not available.
+* PAM (Pluggable Authentication Modules) - enables easy extension loading
+* `<dlfcn.h>` - AP for opening lib, looking ub symbols, handling erros, closing
+  lib. `dlopen(filename, flag)` where `flag` - `RTLD_LAZY` (resolve undefined
+  symbols as parts of lib) or `RTLD_NOW` (resolve before dlopen() or fail).
+* `dlerror()` - report dlopen(), dlsym(), dlclose() erros.
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <dlfcn.h>
+/* NOT including math.h */
+
+// gcc -o run main.c -ldl
+int main()
+{
+    void *handle;
+    double (*pow)(double, double) = NULL;
+
+
+    handle = dlopen("/usr/lib/x86_64-linux-gnu/libm.so.6", RTLD_LAZY);
+    if (!handle) {
+        fputs (dlerror(), stderr);
+        exit(1);
+    }
+    dlerror(); // clear the error code?
+
+    pow = dlsym(handle, "pow");
+    printf("%f\n", pow(3, 2));
+
+    dlcose(handle);
+}
+```
+
 ## WIP
 
 ### Files
@@ -410,20 +463,31 @@ you'd call `MIN(get_random_number(), b)`
   * retains the `'\n'`
   * returns NULL if EOF, else `char *`
 
-### Static library
+## Libs
 
-* libraries are groups of headers (.h) and implementations (.c)
-* static linking(.a, .lib) - produce archives. all library contents are copied to the ex.
-  file. faster, but heavier on disk space and memory use and slower to recompile.
-  created with `ar`, stored ad `/usr/local/lib`
+### `assert.h`
 
-* dynamic linking(shared object libraries, .so) - compiled separately. no need to
-  recompile after software updates. linkied with `ld`
-* convention is to name files `lib_$(foo).so`
-* `lld` - list all shared libraries of an executable
+* prints to stderr, invokes abort()
+* `#define NDBUG //switch off runtime assertions`
+* `static_assert(foo == 0, "foo is not true!)` - will check on compilation
 
-### Misc
+### `stdlib.h`
 
-* abort(), atexit() - define what happens on 1 and 0 exits
-* qsort() - sort array
-* system() - use system commands
+* `exit()` - flushes output streams, closes open strams, closes tmp files
+  (`tmpfile()`).
+* `atexit()` - call a function at exit. can register up to 32 functions.
+* `abort()` - cause abnomral process termination ("fail hard, fail often"?)
+  * raises SIGABRT
+  * unsuccesful termination will be hinted
+  * will dump core
+  * atexit() are not called
+  * does NOT flush streams since glibc 2.26
+* `srand()` - called once before `rand()` calls. usually `srand(time(0))`
+* memcpy() - no overlap, memmove() - allows overlap
+* strdup() - `ptr2 = malloc(strlen(ptr1)+1); strcpy(ptr2,ptr1);` as opposed
+  tostrcpy() - `while(*ptr2++ = *ptr1++);`
+
+* clock(), time(), ctime(), difftime(), asctime(), localtime(), gmtime()
+* qsort()
+* system()
+* getenv()
