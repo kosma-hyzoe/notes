@@ -222,7 +222,7 @@ bool voolVar = true;
 
 ## Advanced Data Types
 
-* `const` is sometimes preferred to `#define` cause it's type-checked?
+* `const` is sometimes preferred to `#define` cause it's type-checked
 * `typedef char *String` - define type `String` equivalent to `char *`
 
 ### Flexible array members
@@ -487,7 +487,18 @@ int main()
 * strdup() - `ptr2 = malloc(strlen(ptr1)+1); strcpy(ptr2,ptr1);` as opposed
   tostrcpy() - `while(*ptr2++ = *ptr1++);`
 
+* time() - seconds from jan 1 1970
+* ctmie() / asctime() - convert to readable date
+* gmtime() - into UTC
+
 * clock(), time(), ctime(), difftime(), asctime(), localtime(), gmtime()
 * qsort()
 * system()
 * getenv()
+
+### Abstract data types
+
+* statck - push, pop, peek, size, isEmpty
+* queue - fifo, enqueue, dequeue, peek, size
+* binary tree - insert, delete, search, size
+  * preorder, postorder, inorder
