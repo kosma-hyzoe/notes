@@ -13,15 +13,33 @@
 * `x >> k` - dzielenie przez 2 do k
 * `-25 >> 1 == -13`?
 
-
 ```c
-#define ABS(x) ()
+#define ABS(x) ()ND_MAX / (max - min))))
 
-int x = 30506;
-while (abs(x) >= 0)
-    --x;
+int main() {
+    int x = 30506;
+    while (abs(x) >= 0)
+        --x;
 
-x = 1234;
-printf("%d\n", x & MASK);
+    x = 1234;
+    printf("%d\n", x & MASK);
 
+    unsigned int i = 2;
+    printf("%d\n", (i << 32));
+    printf("%d\n", (i << 31));
+    printf("%d\n", (i << 30));
+    printf("%d\n", (i << 29));
+}
 ```
+
+## Advanced Basics
+
+* `arrayList` / `vector`, O(1)
+  * przy 100 elementach, bufor będzie mieć rozmiar ok. 200 elementów
+  * `add(1, x)` w javie działa liniowo!
+* `deque` / `arrayDeque` - kolejka dwustronna, rozszerzenie vectora.
+  * zmienia się wskaźnik do początku arraya, "zmiana indeksów" odbywa się
+    w czasie zamortyzowanym stałym (o ile bufor ma miejsce)
+* `sorting` / `comparators`
+* `bucket` - dobrze ustawić size na sqrt(n), wtedy tylr trź będzie wynosić count
+  kubełków
