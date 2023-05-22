@@ -6,7 +6,6 @@
 
 ## TODO
 
-* jumps
 * -L and -l compile flags
 * section 4 beginners: linker errors, runtime errors, logic errors
 * the extra exes @ 04/00
@@ -222,7 +221,7 @@ bool voolVar = true;
 
 ## Advanced Data Types
 
-* `const` is sometimes preferred to `#define` cause it's type-checked
+* `const` is sometimes preferred to `#define` cause it's type-checked?
 * `typedef char *String` - define type `String` equivalent to `char *`
 
 ### Flexible array members
@@ -328,7 +327,6 @@ you'd call `MIN(get_random_number(), b)`
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define LEN(a) (sizeof(a) / sizeof(a)[0])
 #define BETWEEN(x, a, b) ((a) <= (x) && (x) <= (b))
-#define RAND_BETWEEN(min, max) (min + (rand() / (RAND_MAX / (max - min))))
 #define DEFAULT(a, b)  (a) = (a) ? (a) : (b)
 #define TIMEDIFF(t1, t2) ((t1.tv_sec-t2.tv_sec)*1000 + \
                 (t1.tv_nsec-t2.tv_nsec)/1E6)
@@ -448,21 +446,6 @@ int main()
 
 ## WIP
 
-### Files
-
-* r - read, must exist
-* w - write, truncate if exists
-* a - write, append if exist
-* r+ - read and write, must exist
-* w+ - read and write, truncate
-* a+ - read and write, append
-
-* `rename()`, `remove()` - returns 0/1
-* `fgets():`
-  * read until `'\n'` or `nchars-1`
-  * retains the `'\n'`
-  * returns NULL if EOF, else `char *`
-
 ## Libs
 
 ### `assert.h`
@@ -498,7 +481,157 @@ int main()
 
 ### Abstract data types
 
-* statck - push, pop, peek, size, isEmpty
+* stack - push, pop, peek, size, isEmpty
 * queue - fifo, enqueue, dequeue, peek, size
 * binary tree - insert, delete, search, size
   * preorder, postorder, inorder
+* Linked lists - pointer to a next node is called a link
+
+### Files
+
+* r - read, must exist
+* w - write, truncate if exists
+* a - write, append if exist
+* r+ - read and write, must exist
+* w+ - read and write, truncate
+* a+ - read and write, append
+
+* `rename()`, `remove()` - returns 0/1
+* `fgets():`
+  * read until `'\n'` or `nchars-1`
+  * retains the `'\n'`
+  * returns NULL if EOF, else `char *`
+
+### Misc
+
+* abort(), atexit() - define what happens on 1 and 0 exits
+* qsort() - sort array
+* system() - use system commands
+
+### Interprocesses communication and signals
+
+* process - a program in execution
+* interprocess communication
+  * pipes
+  * signals (with a table of most common signals)
+* example c code: ignoring a signal, sigaction(), `struct sigaction`
+* use sprintf() and write() instead of printf() in forked processes
+
+`ps`, `kill`
+alarm() - raise SIGALARM after timeout
+sigkill, sgabrt, sigstop - "unstopable"
+
+```c
+void signalHandler(int signum) {
+    printf("Signal %d received.\n", signum);
+    // Handle the signal here
+}
+
+int main() {
+    sighandler_t previousHandler;
+
+    // Associate SIGINT signal with signalHandler and store the previous handler
+    previousHandler = signal(SIGINT, signalHandler);
+    if (previousHandler == SIG_ERR) {
+        printf("Error setting signal handler.\n");
+        return 1;
+    }
+
+    // Rest of the program
+
+    // Restore the previous signal handler if needed
+    signal(SIGINT, previousHandler);
+
+    return 0;
+}
+```
+
+## Threads
+
+### `pthread`
+
+`pthread`, short for POSIX threads, is an API for managing multiple threads in a POSIX-compliant operating system. In Linux, it needs to be linked via the `-lpthread` option.
+
+Let's dive into some of the primary functions:
+
+* `pthread_create()`: This function creates a new thread and returns its thread id. The function takes four arguments: a pointer to a `pthread_t` variable (which will be set to the ID of the created thread), a `pthread_attr_t` that specifies attributes for the new thread (or `NULL` for default attributes), a function to be executed by the new thread, and a void pointer for passing arguments to the function. Here is an example:
+
+  ```c
+  pthread_t thread_id;
+  int arg = 123;
+  pthread_create(&thread_id, NULL, my_thread_func, &arg);
+  ```
+
+* `pthread_join()`: This function waits for a specific thread to finish. It blocks the calling thread until the specified thread terminates. If the thread has already terminated, the function returns immediately. It can also return the exit status of the terminated thread if a non-null pointer is passed as the second argument.
+
+  ```c
+  void *exit_status;
+  pthread_join(thread_id, &exit_status);
+  ```
+
+* `pthread_exit()`: This function terminates the calling thread and returns a value via `retval` that (if the thread is joinable) is available to another thread in the same process that calls `pthread_join()`.
+
+  ```c
+  pthread_exit((void *) exit_status);
+  ```
+
+* `pthread_self()`: This function returns the ID of the calling thread. This can be useful for debugging or for control structures that need to know the current thread.
+
+  ```c
+  pthread_t this_thread_id = pthread_self();
+  ```
+
+* `pthread_detach()`: This function is used to ensure that system resources are automatically released when the thread terminates, without needing another thread to join with the terminated thread.
+
+  ```c
+  pthread_detach(thread_id);
+  ```
+
+* `pthread_attr_setstacksize()`: This function sets the stack size attribute of the thread attributes object referred to by `attr` to `stacksize`.
+
+  ```c
+  pthread_attr_t attr;
+  pthread_attr_init(&attr);
+  pthread_attr_setstacksize(&attr, PREFERRED_STACK_SIZE);
+  pthread_create(&thread_id, &attr, my_thread_func, &arg);
+  ```
+
+* `pthread_equal()`: This function compares two thread identifiers. If the two IDs are equal, the function returns a nonzero value; otherwise, it returns 0.
+
+  ```c
+  if (pthread_equal(thread_id1, thread_id2)) {
+    // the two thread IDs are equal
+  }
+  ```
+
+## Passing Arguments and Returning Values
+
+When creating a new thread, you can pass arguments to the thread function via a void pointer. This argument can point to a structure to pass multiple arguments. Remember, if you pass a pointer to a local variable, ensure the local variable doesn't go out of scope (and thus get deallocated) before the thread is done with it!
+
+The thread function can also return a value via `pthread_exit()`. This value can be retrieved by another thread using `pthread_join()`. It's common to dynamically allocate some memory for the return value, so that it doesn't get deallocated when the thread exits.
+
+Here's an example that shows how to pass an argument and get a return value:
+
+```c
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int a;
+    int b;
+} args_t;
+
+
+
+
+* passing arguments and returning values
+```
+
+### Theread symc
+
+* basics
+<!-- make sure to include code examples for the topics below -->
+* preventing deadlocks
+* mutual exclusion, mutexes
+* Condition variables
