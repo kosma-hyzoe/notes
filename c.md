@@ -516,7 +516,7 @@ int main()
   * signals (with a table of most common signals)
 * example c code: ignoring a signal, sigaction(), `struct sigaction`
 * use sprintf() and write() instead of printf() in forked processes
-
+/,/
 `ps`, `kill`
 alarm() - raise SIGALARM after timeout
 sigkill, sgabrt, sigstop - "unstopable"
@@ -548,13 +548,30 @@ int main() {
 
 ## Threads
 
-### `pthread`
+### Misc threads notes
 
-`pthread`, short for POSIX threads, is an API for managing multiple threads in a POSIX-compliant operating system. In Linux, it needs to be linked via the `-lpthread` option.
+* creating a new thread is faster than creating a new process
+* arg structs are commonly declared `typedef struct { int a; int b; } args_t;`
+* remember to free result pointers <!-- # TODO example -->
+* if a threads opens a file with r privileges, other threads from this process
+  have inherit the privs.
+
+* `if(pthread_create(&pt,NULL,fun_t,NULL) != 0) perror("pthread_create");`
+
+### Basics
+
+`pthread`, short for POSIX threads, is an API for managing multiple threads in a
+POSIX-compliant operating system. In Linux, it needs to be linked via the
+`-lpthread` option.
 
 Let's dive into some of the primary functions:
 
-* `pthread_create()`: This function creates a new thread and returns its thread id. The function takes four arguments: a pointer to a `pthread_t` variable (which will be set to the ID of the created thread), a `pthread_attr_t` that specifies attributes for the new thread (or `NULL` for default attributes), a function to be executed by the new thread, and a void pointer for passing arguments to the function. Here is an example:
+* `pthread_create()`: This function creates a new thread and returns its thread
+id. The function takes four arguments: a pointer to a `pthread_t` variable
+(which will be set to the ID of the created thread), a `pthread_attr_t` that
+specifies attributes for the new thread (or `NULL` for default attributes), a
+function to be executed by the new thread, and a void pointer for passing
+arguments to the function. Here is an example:
 
   ```c
   pthread_t thread_id;
@@ -562,32 +579,43 @@ Let's dive into some of the primary functions:
   pthread_create(&thread_id, NULL, my_thread_func, &arg);
   ```
 
-* `pthread_join()`: This function waits for a specific thread to finish. It blocks the calling thread until the specified thread terminates. If the thread has already terminated, the function returns immediately. It can also return the exit status of the terminated thread if a non-null pointer is passed as the second argument.
+* `pthread_join()`: This function waits for a specific thread to finish. It
+blocks the calling thread until the specified thread terminates. If the thread
+has already terminated, the function returns immediately. It can also return the
+exit status of the terminated thread if a non-null pointer is passed as the
+second argument.
 
   ```c
   void *exit_status;
   pthread_join(thread_id, &exit_status);
   ```
 
-* `pthread_exit()`: This function terminates the calling thread and returns a value via `retval` that (if the thread is joinable) is available to another thread in the same process that calls `pthread_join()`.
+* `pthread_exit()`: This function terminates the calling thread and returns a
+value via `retval` that (if the thread is joinable) is available to another
+thread in the same process that calls `pthread_join()`.
 
   ```c
   pthread_exit((void *) exit_status);
   ```
 
-* `pthread_self()`: This function returns the ID of the calling thread. This can be useful for debugging or for control structures that need to know the current thread.
+* `pthread_self()`: This function returns the ID of the calling thread. This can
+be useful for debugging or for control structures that need to know the current
+thread.
 
   ```c
   pthread_t this_thread_id = pthread_self();
   ```
 
-* `pthread_detach()`: This function is used to ensure that system resources are automatically released when the thread terminates, without needing another thread to join with the terminated thread.
+* `pthread_detach()`: This function is used to ensure that system resources are
+automatically released when the thread terminates, without needing another
+thread to join with the terminated thread.
 
   ```c
   pthread_detach(thread_id);
   ```
 
-* `pthread_attr_setstacksize()`: This function sets the stack size attribute of the thread attributes object referred to by `attr` to `stacksize`.
+* `pthread_attr_setstacksize()`: This function sets the stack size attribute of
+the thread attributes object referred to by `attr` to `stacksize`.
 
   ```c
   pthread_attr_t attr;
@@ -596,7 +624,8 @@ Let's dive into some of the primary functions:
   pthread_create(&thread_id, &attr, my_thread_func, &arg);
   ```
 
-* `pthread_equal()`: This function compares two thread identifiers. If the two IDs are equal, the function returns a nonzero value; otherwise, it returns 0.
+* `pthread_equal()`: This function compares two thread identifiers. If the two
+IDs are equal, the function returns a nonzero value; otherwise, it returns 0.
 
   ```c
   if (pthread_equal(thread_id1, thread_id2)) {
@@ -604,34 +633,134 @@ Let's dive into some of the primary functions:
   }
   ```
 
-## Passing Arguments and Returning Values
+### Thread Synchronization
 
-When creating a new thread, you can pass arguments to the thread function via a void pointer. This argument can point to a structure to pass multiple arguments. Remember, if you pass a pointer to a local variable, ensure the local variable doesn't go out of scope (and thus get deallocated) before the thread is done with it!
+Multiple threads within a process share same files, **address space** and
+global variables. Sync them, OR ELSE!
 
-The thread function can also return a value via `pthread_exit()`. This value can be retrieved by another thread using `pthread_join()`. It's common to dynamically allocate some memory for the return value, so that it doesn't get deallocated when the thread exits.
+#### Mutex
 
-Here's an example that shows how to pass an argument and get a return value:
+Prevents **deadlocks, race conditions and shared address collisions**. When
+a piece of code is executed by wrapping it with a lock/unlock of a mutex, only
+one thread can execute that code at a time. In other words, it provides a
+mechanism for multiple threads to mutually exclude each other.
 
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
+Here are some of the primary functions:
 
-typedef struct {
-    int a;
-    int b;
-} args_t;
+* `pthread_mutex_init()`: This function initializes a mutex. The mutex should be
+destroyed with `pthread_mutex_destroy()` when it is no longer needed.
 
+  ```c
+  pthread_mutex_t mutex;
+  pthread_mutex_init(&mutex, NULL);
+  ```
 
+* `pthread_mutex_lock()`: This function locks a mutex. If the mutex is already
+locked, the calling thread will be blocked until the mutex is unlocked.
 
+  ```c
+  pthread_mutex_lock(&mutex);
+  ```
 
-* passing arguments and returning values
-```
+* `pthread_mutex_unlock()`: This function unlocks a mutex.
 
-### Theread symc
+  ```c
+  pthread_mutex_unlock(&mutex);
+  ```
 
-* basics
-<!-- make sure to include code examples for the topics below -->
-* preventing deadlocks
-* mutual exclusion, mutexes
-* Condition variables
+* `pthread_mutex_destroy()`: This function destroys a mutex. The mutex should be
+unlocked before being destroyed.
+
+  ```c
+  pthread_mutex_destroy(&mutex);
+  ```
+
+#### Condition Variable
+
+Condition variables are another type of synchronization mechanism. They allow
+threads to synchronize based upon the actual value of data. It is used in
+conjunction with a mutex lock.
+
+Here are some of the primary functions:
+
+* `pthread_cond_init()`: This function initializes a condition variable.
+
+* `pthread_cond_wait()`: This function blocks the calling thread until the given
+condition variable is signaled or broadcasted. It must be called with the mutex
+locked. It will automatically release the mutex while it waits. After signal is
+received and thread is awakened, mutex is locked again and `pthread_cond_wait()`
+exits.
+
+* `pthread_cond_signal()`: This function unblocks at least one of the threads
+that are blocked on the specified condition variable.
+
+* `pthread_cond_broadcast()`: This function unblocks all threads currently
+blocked on the specified condition variable.
+
+* `pthread_cond_destroy()`: This function destroys a condition variable.
+
+#### Semaphore
+
+In some cases, we need to allow more than one thread to access the same resource
+at once, but still limit the overall number. This is where the semaphore comes
+in. Semaphores are an advanced form of mutex which allow multiple access.
+
+Here are some of the primary functions:
+
+* `sem_init()`: This function initializes a semaphore.
+
+  ```c
+  sem_t sem;
+  sem_init(&sem, 0, initial_value);
+  ```
+
+* `sem_wait()`: This function locks a semaphore. If the semaphore value is
+greater than zero, then the decrement operation is performed and the function
+returns immediately. If the semaphore value is zero, then the call blocks until
+it becomes possible to perform the decrement operation.
+
+  ```c
+  sem_wait(&sem);
+  ```
+
+* `sem_post()`: This function increases the value of a semaphore and wakes up a
+blocked thread waiting on the semaphore, if any.
+
+  ```c
+  sem_post(&sem);
+  ```
+
+*
+
+ `sem_destroy()`: This function destroys a semaphore.
+
+  ```c
+  sem_destroy(&sem);
+  ```
+
+#### Barrier
+
+A barrier is a type of synchronization method in multithreading, where a thread
+will stop at the barrier point and cannot proceed until all other threads reach
+this barrier.
+
+Here are some of the primary functions:
+
+* `pthread_barrier_init()`: This function initializes a barrier with a count.
+
+* `pthread_barrier_wait()`: This function blocks the calling thread until the
+specified number of threads have called `pthread_barrier_wait()` specifying the
+barrier.
+
+* `pthread_barrier_destroy()`: This function destroys a barrier when it is no
+longer needed.
+
+These are some of the main methods used to synchronize threads. It's crucial to
+carefully design and test any code involving thread synchronization, as improper
+use can lead to difficult-to-detect errors, like deadlocks, where two or more
+threads are waiting for each other to release a resource, causing all of them to
+be stuck indefinitely.
+
+## Temp
+
+* servers and clients
