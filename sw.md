@@ -1,4 +1,4 @@
-# WS Academy
+# SW Academy
 
 ## Misc
 
@@ -14,8 +14,6 @@
 * `-25 >> 1 == -13`?
 
 ```c
-#define ABS(x) ()ND_MAX / (max - min))))
-
 int main() {
     int x = 30506;
     while (abs(x) >= 0)
@@ -41,5 +39,7 @@ int main() {
   * zmienia się wskaźnik do początku arraya, "zmiana indeksów" odbywa się
     w czasie zamortyzowanym stałym (o ile bufor ma miejsce)
 * `sorting` / `comparators`
-* `bucket` - dobrze ustawić size na sqrt(n), wtedy tylr trź będzie wynosić count
+* `bucket` - dobrze ustawić size na sqrt(n), wtedy tyle też będzie wynosić count
   kubełków
+
+## Recurrency and backtracking
