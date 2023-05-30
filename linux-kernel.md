@@ -57,3 +57,18 @@ this way.
 * `initrd` filesystem
 * post-`initrd` init runs
 * `/boot/initrd.img-$(uname -r)`
+
+## LKM
+
+* `.ko` - dynamically add kernel functionality
+* `/lib/modules`
+* modprobe looks only under `/lib/modules/$(uname -r)`
+* `lsmod` loads chronologically. FOR CHECKING IF LOADED.
+* `rmmod`
+* `modinfo`
+* `depmod` - generates module config files for modprobe
+* `insmod` - insert a module. returns when module initialization function
+returns
+* `modules.dep`
+* `modinfo cifs | grep - description`
+
