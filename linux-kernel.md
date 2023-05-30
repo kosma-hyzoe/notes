@@ -1,5 +1,10 @@
 # Linux Kernel
 
+## Temp
+
+* `|&` for piping 0 1 and 2
+* `sysctl -a`
+
 ## Basics
 
 * is a program
@@ -35,6 +40,20 @@
 * `/proc` - processes virtual filesystem
 	* threads are stored in `/proc/$(PID)/task`
 	* file descriptors in `/proc/$(PID)/fd`
-* `/dev` - device files
+* `/dev` - device
 	* major numbers, minor numbers, and type (c, character or b, block)
 * `tty`
+
+## Booting
+
+* GRUB loads the kernel and initial root filesystem, sets up kernel command.
+* GRUB 1 had `grub.conf`.
+* GRUB 2 has `/etc/default/grub`, `/etc/grub.d`
+* GRUB Interactive
+* Kernel ignores unrecognized arguments, they can be passed to other programs
+this way.
+* rdinit
+* `kernel-parameters.txt`?
+* `initrd` filesystem
+* post-`initrd` init runs
+* `/boot/initrd.img-$(uname -r)`
