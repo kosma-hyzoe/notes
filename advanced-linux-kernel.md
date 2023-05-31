@@ -1,7 +1,8 @@
-# Linux Kernel
+# [Advanced Linux: Linux Kernel](https://www.linkedin.com/learning/advanced-linux-the-linux-kernel-2)
 
 ## Temp
 
+* SATA? IDE?
 * `|&` for piping 0 1 and 2
 * `sysctl -a`
 
@@ -19,7 +20,7 @@
 ## Hardware commands
 
 * `lshw`, `lspci`, `lsusb`, `lsblk`, `lscpu`
-* `hdparam`
+* `hdparm`
 * `inb` and `outb`?
 * `setpci`
 
