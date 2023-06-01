@@ -3,6 +3,7 @@
 ## Temp
 
 * SATA? IDE?
+* `rdinit` and `init` kernel flags?
 * `|&` for piping 0 1 and 2
 * `sysctl -a`
 
