@@ -4,6 +4,28 @@
 
 * `for(i=1; text[i] = (char)toupper(text[i]) != '\0'; ++i);`
 
+```c
+do {
+    printf("new x? ");
+    result = scanf("%d", &x);
+    fflush(stdin);
+} while (result == 0); /* junk inputs like 123abc will still work */
+```
+
+```c
+do { /* better to use getline() or fgets() */
+    printf("new x? ");
+    result = scanf("%d%c", &x, &nextch);
+    fflush(stdin);
+} while (result == 0 || nextch != '\n');
+
+```
+
+```c
+char name[20];
+scanf("%19s", name); /* macro tricks to avoid hard-code uglyness? */
+```
+
 ## TODO
 
 * -L and -l compile flags

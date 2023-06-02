@@ -1,16 +1,37 @@
 #  Filesystem
 
+## TODO
+
+* WTF wrong with my `/etc/fstab`
+
+## General
+
+* `mkfs -t ext4 /dev/sdb2` - only use on partitions with no existing fs
+* `mount -t ext4 /dev/sdb2 /mymountpoint`
+* `unmount /mymountpoint` or `/unmount /dev/sdb2`
+* can use the `UUID=` arg instead of path
+* `blkid` - display block device UUID
+* auto mount by adding file to `/etc/fstab` (pronounced "eff es tab")
+* `man fstab`
+* `du -h` - show disk usage
+* `df` - how much *disk* is *free*
+* `fsck /dev/sda` - check and try to repair the filesystem
+
+## Dir structure
+
 * `/etc` - core system configuration directory
 * `/lib` - libs that bins use
 * `/media` - attachment point for removable media
 * `/mnt` - temporarilt mounted filesystems
 * `/opt` - optional app software packages (TODO ?)
-* `/sbin` - essential system binaries
+* `/sbin` - essential system binaries (root only)
 * `/run` - info about running system since last boot
 * `/srv` - site specific data served by the system (TODO ?)
-* `/usr` - user installed software and utils
+* `/usr` - user installed software and utils. "non-essential"
+    * `/usr/local/bin` - self-compiled bins
 * `/var` - "variable directory", system logging, user tracking, caches,
   stuff subject to change.
+  `/tmp` - NON-PERSISTENT BETWEEN REBOOTS!
 
 ## Filesystem types
 
@@ -21,7 +42,7 @@
 
 ## Disk anatomy
 
-* `sudo parted -l` - show partition data
+* `sudo parted -l` - bhow partition data
 
 * boot block - for booting the filesystem
 * super block - info about the filesystem
@@ -47,12 +68,41 @@ GPT:
 * Each partition has a globally unique ID (GUID)
 * Used mostly in conjunction with UEFI based booting (we'll get into details in another course)
 
-## Disk partitioning
+## Disk partitioning (using `parted`)
 
-```bash
-sudo parted
-(parted) select /dev/sdb2
-(parted) print
-mkpart primary 123 4567
-```
+* select /dev/sdb2
+* print
+* `mkpart primary 123 4567` / `mkpart ${type} ${start} ${end}`
 
+## Swap
+
+* `mkswap /deb/sdb2`
+* `swapon /deb/sdb2`
+* add to `/etc/fstab`
+* `swapoff /deb/sdb2`
+
+
+## Inodes (Index nodes)
+
+An inode table is a database that manages the files on a filestystem. `df -i`
+Allocated automatically on fs creation. "Out of indode space" errrors may occur,
+though not very often.
+
+* File type - regular file, directory, character device, etc
+* Owner
+* Group
+* Access permissions
+* Timestamps
+    * mtime (time of last file modification)
+    * ctime (time of last attribute change), atime (time of last access)
+* Number of hardlinks to the file
+* Size of the file
+* Number of blocks allocated to the file
+* Pointers to the data blocks of the file - most important!
+
+ Inodes point to the actual data blocks of your files. In a typical filesystem
+ (not all work the same), each inode contains 15 pointers, the first 12 pointers
+ point directly to the data blocks. Pointers 13-15 point to a block
+ containing pointers to more blocks.
+
+ * Hardlinks create another files with a link (pointer?) to the same inode.
