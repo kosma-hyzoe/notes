@@ -1,4 +1,12 @@
-# Neat code bits!
+# Super user
+
+New shortcuts and features to memorize and learn regularly. If it's here it
+hasn't become "obvious", an instinct, yet.
+
+## Vim
+
+* `vip`
+*
 
 ## Unix
 
@@ -15,3 +23,7 @@ ask and answer questions.
 [stackoverflow]: http://stackoverflow.com/questions/tagged/c
 [K&R]: https://www.amazon.com/Programming-Language-2nd-Brian-Kernighan/dp/0131103628/
 
+
+## C
+
+* `for(i=1; text[i] = (char)toupper(text[i]) != '\0'; ++i);`

@@ -1,8 +1,6 @@
 # Processes
 
-## todo
-
-* zombie processes
+* processes can be blocked - "ignored until", or ignored.
 
 ## `ps`
 
@@ -22,7 +20,6 @@
 
 ## Signals
 
-* TODO block vs ignore?
 * HUP: 1 (hangup)
 * INT: 2 (interrupt)
 * KILL: 9 - no clean up

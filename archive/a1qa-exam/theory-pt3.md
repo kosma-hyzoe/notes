@@ -3,7 +3,7 @@
 ## DBMS
 
 ```
-SELECT t1.value, table2.value 
+SELECT t1.value, table2.value
 FROM table1 as t1
 INNER JOIN table2
 ON t1.mutual_key = table2.mutual_key;
@@ -33,7 +33,7 @@ HTTPS uses SSL or TLS to encrypt the data before it's transmitted. HTTP uses por
 
 Shared resources and permissions - within networks and user groups. Users can have different permissions (read, write, execute)
 
-Proxies may enchance connection speed and reduce bandwith with cache. they enable activity logging and limiting. Only a proxy with a VPN (encrypted connection) can ensure a truly secure connection. 
+Proxies may enchance connection speed and reduce bandwith with cache. they enable activity logging and limiting. Only a proxy with a VPN (encrypted connection) can ensure a truly secure connection.
 
 MAC adress is a unique, hexadecimal network device identifier. First 3 bytes
 identify the manufacturer, last 3 bytes - the device itself. IP's may change,
@@ -46,7 +46,6 @@ the MAC adess via an ARP request and finally connect.
 * 0003.4440.2340... - cisco
 
 To see the mac address, use `ipconfig /all` on windows or `ifconfig -a` on unix.
-It also be used to 
 
 DNS (domain name system) checks the names in a **resolver** cache first, then to the root server.
 the **root** server forwards th request to a **tld**  server which stores top level domain adress
@@ -54,14 +53,14 @@ info (.com, .org etc), then the tld server forwards it to the **name** server.
 
 DHCP (dynamic host config protocol) is a system for automatically assigning IP
 adresses to MAC adresses (as opposed to doing it manually). it also assigns **a
-subnet mask, default gateawy and dns server**. 
+subnet mask, default gateawy and dns server**.
 
 Default gateway: A default gateway is a network router that connects devices on
 a local network to the Internet or other wide area networks.
 
 Subnet mask: A subnet mask is a 32-bit number that helps to divide a larger
 network into smaller subnets. It is used to divide a network into different
-subnets so that network traffic can be more easily controlled and managed. 
+subnets so that network traffic can be more easily controlled and managed.
 
 `ping` - tests network connectivity and dns issues - sends datapackets and tracks time if a reply was recieved. tracks
 lost packets. diagnoses `network congestion`.
@@ -126,14 +125,14 @@ connection is useful for creating isolated networks for testing or development.
 * Shared clipboard
 * Automated logins credentials passing.
 
-## Windows 
+## Windows
 
 An application is a program that users interact with on the desktop. A process
 is an instance of an executable program running. A service is a background
 process that does not interact with the desktop.
 
 RDP - easy on the same network, harder on different networks. Supported only in higher-end windwos editions, and only
-windows-windows. 
+windows-windows.
 
 ### taskkill
 
@@ -146,10 +145,10 @@ taskkill /IM <process name> /F
 
 ### Windows Domain Controller (DC)
 
-a server with an AD DS / active directory domain services role installed. 
+a server with an AD DS / active directory domain services role installed.
 There can be multiple controllers, but only one primary one.
 
-When a PC connects, it first tries to find a local account on the pc, then look for it in the dc's active dircetory. 
+When a PC connects, it first tries to find a local account on the pc, then look for it in the dc's active dircetory.
 
 Group policies contain group policy objects (GPO) that manage AD objects
 
@@ -182,7 +181,7 @@ Group policies contain group policy objects (GPO) that manage AD objects
 * TimeoutException
 * InvalidSelectorException
 * WebDriverExceptions
-* ElementClickInterceptedException 
+* ElementClickInterceptedException
 (element receiving the events is obscuring the element that was requested to be clicked.)
 
 ### Cookies
@@ -205,7 +204,7 @@ Set<Cookie> cookies = driver.manage().getCookies();
 #### in vanilla Selenium
 
 ```
-// explicit, returns TimeoutExceptions  
+// explicit, returns TimeoutExceptions
 WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
         .until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")));
 // implicit, return NoSuchElementException

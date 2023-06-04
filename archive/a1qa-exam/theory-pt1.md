@@ -1,4 +1,4 @@
-# Theory part 1 
+# Theory part 1
 
 ## Git
 
@@ -23,7 +23,7 @@ global, local overrides system.
 
 * pull = fetch + merge
 
-* `git config --list` - (local first, then global, then system) 
+* `git config --list` - (local first, then global, then system)
 
 ```
 git config user.name # shows the value of the "user" setting
@@ -31,7 +31,7 @@ git config --list
 git log -n 5
 ```
 
-* git diff master...feature 
+* git diff master...feature
 * git diff master
 * git branch - display branches
 * git checkout -b - switch to a new branch
@@ -43,7 +43,7 @@ git log -n 5
 ^
 * git commit -m message -m description
 
-* git reset --hard *commit id* 
+* git reset --hard *commit id*
 * git reset --hard origin/master
 
 
@@ -81,5 +81,3 @@ discard builds **older than OR when there are more than**
 * The H symbol can be used with a range. For example, H H(0-7) * * * means some time between 12:00 AM (midnight) to 7:59
 AM. You can also use step intervals with H, with or without ranges.
 
-
-[//]: # (todo parametrization, post conditions)

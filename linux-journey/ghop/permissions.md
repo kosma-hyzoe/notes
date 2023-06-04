@@ -34,7 +34,7 @@
 
 * effective user ID - takes SUIDs and GUIDs into account
 * real user ID - actual user-who-runs ID
-* saved user ID - switch between effective and real user ID ( TODO how tho?)
+* saved user ID - switch between effective and real user ID
 
 ## Sticky bit
 

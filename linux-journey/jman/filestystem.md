@@ -1,9 +1,5 @@
 #  Filesystem
 
-## TODO
-
-* WTF wrong with my `/etc/fstab`
-
 ## General
 
 * `mkfs -t ext4 /dev/sdb2` - only use on partitions with no existing fs
@@ -23,10 +19,10 @@
 * `/lib` - libs that bins use
 * `/media` - attachment point for removable media
 * `/mnt` - temporarilt mounted filesystems
-* `/opt` - optional app software packages (TODO ?)
+* `/opt` - optional app software packages
 * `/sbin` - essential system binaries (root only)
 * `/run` - info about running system since last boot
-* `/srv` - site specific data served by the system (TODO ?)
+* `/srv` - site specific data served by the system
 * `/usr` - user installed software and utils. "non-essential"
     * `/usr/local/bin` - self-compiled bins
 * `/var` - "variable directory", system logging, user tracking, caches,
@@ -36,8 +32,8 @@
 ## Filesystem types
 
 * Linux always uses Virtual File System (VFS) abstraction layer.
-* Journaling: before copy/write operations, journal/log the operation (TODO in
-  in then the system can recover from here, right?) and log it's completion.
+* Journaling: before copy/write operations, journal/log the operation
+* and log it's completion for easy recovery points.
 * `df -T`
 
 ## Disk anatomy

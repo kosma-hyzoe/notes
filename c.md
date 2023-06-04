@@ -2,30 +2,6 @@
 
 ## Neat code bits
 
-* `for(i=1; text[i] = (char)toupper(text[i]) != '\0'; ++i);`
-
-```c
-do {
-    printf("new x? ");
-    result = scanf("%d", &x);
-    fflush(stdin);
-} while (result == 0); /* junk inputs like 123abc will still work */
-```
-
-```c
-do { /* better to use getline() or fgets() */
-    printf("new x? ");
-    result = scanf("%d%c", &x, &nextch);
-    fflush(stdin);
-} while (result == 0 || nextch != '\n');
-
-```
-
-```c
-char name[20];
-scanf("%19s", name); /* macro tricks to avoid hard-code uglyness? */
-```
-
 ## TODO
 
 * -L and -l compile flags
@@ -478,6 +454,29 @@ int main()
 
 ### `stdlib.h`
 
+
+```c
+do {
+    printf("new x? ");
+    result = scanf("%d", &x);
+    fflush(stdin);
+} while (result == 0); /* junk inputs like 123abc will still work */
+```
+
+```c
+do { /* better to use getline() or fgets() */
+    printf("new x? ");
+    result = scanf("%d%c", &x, &nextch);
+    fflush(stdin);
+} while (result == 0 || nextch != '\n');
+
+```
+
+```c
+char name[20];
+scanf("%19s", name); /* macro tricks to avoid hard-code uglyness? */
+```
+
 * `exit()` - flushes output streams, closes open strams, closes tmp files
   (`tmpfile()`).
 * `atexit()` - call a function at exit. can register up to 32 functions.
@@ -574,7 +573,7 @@ int main() {
 
 * creating a new thread is faster than creating a new process
 * arg structs are commonly declared `typedef struct { int a; int b; } args_t;`
-* remember to free result pointers <!-- # TODO example -->
+* remember to free result pointers
 * if a threads opens a file with r privileges, other threads from this process
   have inherit the privs.
 
