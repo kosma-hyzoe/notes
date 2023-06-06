@@ -61,7 +61,6 @@ this way.
 * `/boot/initrd.img-$(uname -r)`
 
 ## LKM
-
 * `.ko` - dynamically add kernel functionality
 * `/lib/modules`
 * modprobe looks only under `/lib/modules/$(uname -r)`
@@ -69,7 +68,8 @@ this way.
 * `rmmod`
 * `modinfo`
 * `depmod` - generates module config files for modprobe
-* `insmod` - insert a module. returns when module initialization function
+* `insmod` - insert a module. returns when module initialization function used
+on KO files.
 returns
 * `modules.dep`
 * `modinfo cifs | grep - description`
