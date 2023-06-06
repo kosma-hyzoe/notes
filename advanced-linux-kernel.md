@@ -44,7 +44,7 @@
 	* file descriptors in `/proc/$(PID)/fd`
 * `/dev` - device
 	* major numbers, minor numbers, and type (c, character or b, block)
-* `tty`
+# * `tty`
 
 ## Booting
 
@@ -60,17 +60,49 @@ this way.
 * post-`initrd` init runs
 * `/boot/initrd.img-$(uname -r)`
 
+<<<<<<< HEAD
 ## LKM
 * `.ko` - dynamically add kernel functionality
+=======
+## LKM (loadable kernel modules)
+
+
+* `.ko` - dynamically add kernel functionality TODO
+>>>>>>> dbe88449660153651b66c5de84e08a5826d56432
 * `/lib/modules`
 * modprobe looks only under `/lib/modules/$(uname -r)`
-* `lsmod` loads chronologically. FOR CHECKING IF LOADED.
+* `lsmod` loads chronologically. FOR CHECKING IF LOADED AND USED BY STH ELSE.
 * `rmmod`
 * `modinfo`
 * `depmod` - generates module config files for modprobe
+<<<<<<< HEAD
 * `insmod` - insert a module. returns when module initialization function used
 on KO files.
+=======
+* `modprobe` - loads a module and it's dependencies, uses dependency files under
+`/lib/modules/VERSION`, preferable to insmode
+* `insmod` - insert a module. returns when module initialization function
+>>>>>>> dbe88449660153651b66c5de84e08a5826d56432
 returns
 * `modules.dep`
 * `modinfo cifs | grep - description`
 
+### Compiling
+
+`make -C /lib/modules/$(uname -r)/build M=$PWD "${modules}"`
+
+Example module:
+
+
+```c
+// TODO no main?
+#include <linux/init.h>
+#include <linux/module.h>
+#include <linux/sched.h>
+
+int init_simple() { ... }
+void cleanup_simple() { ... }
+
+module_init(init_simple);
+module_exit(cleanup_simple);
+```
