@@ -11,6 +11,7 @@
 * symbolic constants vs function macros?
 * stuff under `## Preprocessor`
 * macros `##` and `#` string operators
+* jmp
 
 ## Bitmasks
 
