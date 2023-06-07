@@ -4,8 +4,9 @@
   source files, binaries and configs are. Including, but not limited to:
     * /lib/modules/$(uname -r)
     * /usr/src/linux-headers-$(uname -r)
-    * /boot/vmlinuz($uname -r)a
+    * /boot/vmlinuz($uname -r)
     * /usr/include
 * linux pages man pages
 * make -C /lib/modules/$(uname -r)/build M=$PWD modules
 * bash `export`
+*

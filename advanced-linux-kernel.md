@@ -1,5 +1,9 @@
 # [Advanced Linux: Linux Kernel](https://www.linkedin.com/learning/advanced-linux-the-linux-kernel-2)
 
+## TODO
+
+* apt install linux-source
+
 ## Temp
 
 * SATA? IDE?
@@ -97,7 +101,7 @@ module_exit(cleanup_simple);
 ## Kernel source
 
 * ` csope -d`
-* `vim -t printk`
+* `vim -t printk`, `ctrl+]` / `ctrl+t`
 
 * `git clone https://git.launchpad.net/~ubuntu-kernel-stable/+git/$RELEASE_CODENAME`
 * config targes:
@@ -108,20 +112,29 @@ module_exit(cleanup_simple);
     * `gconfig` - gtk
     * `tinyconfig`
 * after-build targes:
-    * bzImage (x86)
+    * bzImage (x86) (will create vmlinux)
+    * vmlinux (non-bootable)
     * install
+    * uImage (embedded)
 * other targes:
     * help
     * cscope
-    * tags
+    * tags (`apt install exuberant-ctags`)
 * clean targes
     * mrproper - remove generated files, config and backup
     * distclean - mrpoper + editor backup and patch files
     * clean - remove generated files, keep config
 * build targets:
-    * all - build all targets markged with `[*]` TODO
+    * all - build all targets markged with `[*]`
     * vmlinux - build bare kernel
     * modules - build
     * modules_install
 * Documentation/admin-guide/devices.txt
 
+## Include
+
+* /usr/include is needed, but not used directly?
+
+## Config
+
+* in `<>` brackets
