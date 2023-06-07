@@ -60,30 +60,19 @@ this way.
 * post-`initrd` init runs
 * `/boot/initrd.img-$(uname -r)`
 
-<<<<<<< HEAD
-## LKM
-* `.ko` - dynamically add kernel functionality
-=======
 ## LKM (loadable kernel modules)
 
-
-* `.ko` - dynamically add kernel functionality TODO
->>>>>>> dbe88449660153651b66c5de84e08a5826d56432
+* `.ko` - dynamically add kernel functionality
 * `/lib/modules`
 * modprobe looks only under `/lib/modules/$(uname -r)`
 * `lsmod` loads chronologically. FOR CHECKING IF LOADED AND USED BY STH ELSE.
 * `rmmod`
 * `modinfo`
 * `depmod` - generates module config files for modprobe
-<<<<<<< HEAD
-* `insmod` - insert a module. returns when module initialization function used
-on KO files.
-=======
-* `modprobe` - loads a module and it's dependencies, uses dependency files under
-`/lib/modules/VERSION`, preferable to insmode
 * `insmod` - insert a module. returns when module initialization function
->>>>>>> dbe88449660153651b66c5de84e08a5826d56432
-returns
+returns. Used on `.ko` files.
+* `modprobe` - loads a module and it's dependencies, uses dependency files under
+`/lib/modules/VERSION`, preferable to insmod
 * `modules.dep`
 * `modinfo cifs | grep - description`
 
@@ -91,11 +80,9 @@ returns
 
 `make -C /lib/modules/$(uname -r)/build M=$PWD "${modules}"`
 
-Example module:
-
+Example module
 
 ```c
-// TODO no main?
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/sched.h>
@@ -106,3 +93,35 @@ void cleanup_simple() { ... }
 module_init(init_simple);
 module_exit(cleanup_simple);
 ```
+
+## Kernel source
+
+* ` csope -d`
+* `vim -t printk`
+
+* `git clone https://git.launchpad.net/~ubuntu-kernel-stable/+git/$RELEASE_CODENAME`
+* config targes:
+    * `config`
+    * `menuconfig`
+    * `nconfig` - using ncurses
+    * `xconfig` - qt (better for searching?)
+    * `gconfig` - gtk
+    * `tinyconfig`
+* after-build targes:
+    * bzImage (x86)
+    * install
+* other targes:
+    * help
+    * cscope
+    * tags
+* clean targes
+    * mrproper - remove generated files, config and backup
+    * distclean - mrpoper + editor backup and patch files
+    * clean - remove generated files, keep config
+* build targets:
+    * all - build all targets markged with `[*]` TODO
+    * vmlinux - build bare kernel
+    * modules - build
+    * modules_install
+* Documentation/admin-guide/devices.txt
+

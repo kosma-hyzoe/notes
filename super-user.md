@@ -12,7 +12,9 @@ hasn't become "obvious", an instinct, yet.
 
 * `mkdir -p music/{rock/{punk,goth},classical/{baroque,early}}`
 * `find . -type f -name '*.gz' -exec rm {} + `
-* chmod files recursively `find -name "*.sh" -exec chmod u+x {} \;`
+* `chmod` files recursively: `find -name "*.sh" -exec chmod u+x {} \;`
+* `ls -1A`
+* `grep -l`, `grep -n`
 
 ## Markdown
 
