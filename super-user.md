@@ -6,10 +6,10 @@ hasn't become "obvious", an instinct, yet.
 ## Vim
 
 * `vip`
-*
 
 ## Unix
 
+* `|&` for piping 0 1 and 2
 * `mkdir -p music/{rock/{punk,goth},classical/{baroque,early}}`
 * `find . -type f -name '*.gz' -exec rm {} + `
 * `chmod` files recursively: `find -name "*.sh" -exec chmod u+x {} \;`

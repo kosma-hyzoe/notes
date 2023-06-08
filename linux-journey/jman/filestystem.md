@@ -19,12 +19,12 @@
 * `/lib` - libs that bins use
 * `/media` - attachment point for removable media
 * `/mnt` - temporarilt mounted filesystems
-* `/opt` - optional app software packages
+* `/opt` - optional, self-contained app software packages
 * `/sbin` - essential system binaries (root only)
 * `/run` - info about running system since last boot
-* `/srv` - site specific data served by the system
+* `/srv` - site specific data served by the system (on servers
 * `/usr` - user installed software and utils. "non-essential"
-    * `/usr/local/bin` - self-compiled bins
+    * `/usr/local/bin` - self-compiled bins or not a part of package manager
 * `/var` - "variable directory", system logging, user tracking, caches,
   stuff subject to change.
   `/tmp` - NON-PERSISTENT BETWEEN REBOOTS!

@@ -1,33 +1,18 @@
 # [Advanced Linux: Linux Kernel](https://www.linkedin.com/learning/advanced-linux-the-linux-kernel-2)
 
-## TODO
+Kernel is a program. It is loaded and run by a boot loader, usually GRUB. It
+implements virtual file systems, most importantly proc, sys, and debugfs.
+It is a gatekeeper, it enforces priviliges. It is modular.
 
-* apt install linux-source
+##  Misc
 
-## Temp
+* `sysctl -a` - display all kernel parameters
 
-* SATA? IDE?
-* `rdinit` and `init` kernel flags?
-* `|&` for piping 0 1 and 2
-* `sysctl -a`
-
-## Basics
-
-* is a program
-* loaded and run by a boot loader, usually GRUB
-* virtual file system entries
-    * proc
-    * sys
-    * debugfs
-* is a gatekeeper, enforces priviliges
-* is modular
-
-## Hardware commands
+## Working with hardware
 
 * `lshw`, `lspci`, `lsusb`, `lsblk`, `lscpu`
-* `hdparm`
-* `inb` and `outb`?
-* `setpci`
+* `hdparm` - get/set hard disk parameters
+* `setpci` - configure PCI devices
 
 ## System calls
 
@@ -44,21 +29,19 @@
 
 * `sysfs` - kernel object info, i.e. PCI device info, on `/sys`
 * `/proc` - processes virtual filesystem
-	* threads are stored in `/proc/$(PID)/task`
-	* file descriptors in `/proc/$(PID)/fd`
+    * threads are stored in `/proc/$(PID)/task`
+    * file descriptors in `/proc/$(PID)/fd`
 * `/dev` - device
-	* major numbers, minor numbers, and type (c, character or b, block)
-# * `tty`
+    * major numbers, minor numbers, and type (c, character or b, block)
 
 ## Booting
 
-* GRUB loads the kernel and initial root filesystem, sets up kernel command.
+* GRUB loads the kernel and initial RAM root filesystem, sets up kernel command.
 * GRUB 1 had `grub.conf`.
 * GRUB 2 has `/etc/default/grub`, `/etc/grub.d`
-* GRUB Interactive
 * Kernel ignores unrecognized arguments, they can be passed to other programs
 this way.
-* rdinit
+* `rdinit` - "RAM disk" init.
 * `kernel-parameters.txt`?
 * `initrd` filesystem
 * post-`initrd` init runs
@@ -66,25 +49,21 @@ this way.
 
 ## LKM (loadable kernel modules)
 
-* `.ko` - dynamically add kernel functionality
-* `/lib/modules`
-* modprobe looks only under `/lib/modules/$(uname -r)`
+* `.ko` - kernel object files, "modules", for dynamically adding kernel
+    functionality. Stored in `/lib/modules`, which is indexed by `modprobe`.
 * `lsmod` loads chronologically. FOR CHECKING IF LOADED AND USED BY STH ELSE.
-* `rmmod`
-* `modinfo`
-* `depmod` - generates module config files for modprobe
-* `insmod` - insert a module. returns when module initialization function
-returns. Used on `.ko` files.
 * `modprobe` - loads a module and it's dependencies, uses dependency files under
+* `depmod` - generates a module config file, `modules.dep`, for `modprobe`
+* `insmod` - insert a module. returns when module initialization function.
+    remove with `rmmod`.
+returns. Used on `.ko` files.
 `/lib/modules/VERSION`, preferable to insmod
 * `modules.dep`
 * `modinfo cifs | grep - description`
 
 ### Compiling
 
-`make -C /lib/modules/$(uname -r)/build M=$PWD "${modules}"`
-
-Example module
+### Example module
 
 ```c
 #include <linux/init.h>
@@ -100,41 +79,20 @@ module_exit(cleanup_simple);
 
 ## Kernel source
 
-* ` csope -d`
-* `vim -t printk`, `ctrl+]` / `ctrl+t`
+* [BuildYourOwnKernel @ Ubuntu Wiki](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel)
 
+### Downloading
+
+* `apt install linux-source`
 * `git clone https://git.launchpad.net/~ubuntu-kernel-stable/+git/$RELEASE_CODENAME`
-* config targes:
-    * `config`
-    * `menuconfig`
-    * `nconfig` - using ncurses
-    * `xconfig` - qt (better for searching?)
-    * `gconfig` - gtk
-    * `tinyconfig`
-* after-build targes:
-    * bzImage (x86) (will create vmlinux)
-    * vmlinux (non-bootable)
-    * install
-    * uImage (embedded)
-* other targes:
-    * help
-    * cscope
-    * tags (`apt install exuberant-ctags`)
-* clean targes
-    * mrproper - remove generated files, config and backup
-    * distclean - mrpoper + editor backup and patch files
-    * clean - remove generated files, keep config
-* build targets:
-    * all - build all targets markged with `[*]`
-    * vmlinux - build bare kernel
-    * modules - build
-    * modules_install
-* Documentation/admin-guide/devices.txt
 
-## Include
+### Navigation
 
-* /usr/include is needed, but not used directly?
+* `make cscope && csope` - make and use cscope.
+* `make tags  && vim -t printk`
+    * `ctrl+]` / `ctrl+t` - go to tag declaration/move back
 
-## Config
+## Common dependencies
 
-* in `<>` brackets
+* tags: `apt install exuberant-ctags`
+
