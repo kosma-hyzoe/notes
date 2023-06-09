@@ -7,6 +7,12 @@ hasn't become "obvious", an instinct, yet.
 
 * `vip`
 
+## grep
+
+* -h - skip file names
+* -l - print names only
+* -n - prefix with line numbers
+
 ## Unix
 
 * `|&` for piping 0 1 and 2
@@ -15,6 +21,7 @@ hasn't become "obvious", an instinct, yet.
 * `chmod` files recursively: `find -name "*.sh" -exec chmod u+x {} \;`
 * `ls -1A`
 * `grep -l`, `grep -n`
+* `find . -name "*.md" -exec grep "foo" {} +`
 
 ## Markdown
 

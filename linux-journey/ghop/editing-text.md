@@ -24,6 +24,7 @@ ls /err &> /dev/null
   * -d - change delimeter
 * paste -s - merges lines
 * tr - translate one set of chars to another one, i.e. `tr a-z A-Z`
+* sort
 
 * env - show env variables
 * expand/unexpand - change tabs to space and vice versa
