@@ -6,6 +6,7 @@ hasn't become "obvious", an instinct, yet.
 ## Vim
 
 * `vip`
+* cat split-me.txt | tr ";" "\n"
 
 ## grep
 
