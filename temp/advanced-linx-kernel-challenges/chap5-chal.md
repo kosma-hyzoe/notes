@@ -1,25 +1,29 @@
+# Advanced Linux: The Linux Kernel - Chapter 5 Challenges
+
+## 3
+
 ### In kernel root directory
 
-.tmp_vmlinux.kallsyms1.o
+.tmp_vmlinux.kallsyms2.o
 System.map
 Module.symvers
 modules.builtin.modinfo
 .missing-syscalls.d
 .version
 .vmlinux.cmd
-.tmp_vmlinux.kallsyms2
+.tmp_vmlinux.kallsyms3
 vmlinux
 vmlinux.o
-.tmp_vmlinux.kallsyms2.o
-.tmp_vmlinux.kallsyms1
+.tmp_vmlinux.kallsyms3.o
+.tmp_vmlinux.kallsyms2
+.tmp_vmlinux.kallsyms3.S
 .tmp_vmlinux.kallsyms2.S
-.tmp_vmlinux.kallsyms1.S
 modules.order
 .tmp_System.map
 modules.builtin
 
 
-## In `arch/x86/boot/`
+### In `arch/x86/boot/`
 
 pm.o
 .header.o.cmd
@@ -94,10 +98,9 @@ install. I decided not to redo the process cause it already took me longer than
 it should.
 
 For the record, I used:
-
 `find -maxdepth 1 -newer NEWER -type f  >NEW_FILES`
 
 and then:
-
 `cd arch/x86/boot && find -maxdepth 1 -newer ~/linux-5.4.0/NEWER -type f >> ~/linux-5.4.0/NEW_FILES`
+
 
