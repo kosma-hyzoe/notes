@@ -21,7 +21,7 @@
     * root - location of root system
     * ro - mount filestystem in read-only mode
     * quiet - don't see messages during boot
-    * splash - # TODO splash screen?
+    * splash - splash screen
 
 * initramfs - temporary root filesystem built into the kernel to load the
 necessary drivers for the real root filesystem. this was previously handled by
@@ -32,4 +32,4 @@ necessary drivers for the real root filesystem. this was previously handled by
 * Based: OpenRC, Runit, dinit
     * elogind?
 * Outdated: Upstart, sysv
-*
+
