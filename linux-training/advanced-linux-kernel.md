@@ -149,7 +149,8 @@ crash vmlinux/proc/kcore
 
 ## Drivers
 
+* useful to use `umask` / `umask 0` when creating drivers.
 * most driver functions are executed in process context in privileged kernel
     mode.
-*
+* `copy_to_user()`, `copy_from_user()`
 
