@@ -1,0 +1,1 @@
+cmd_/home/kevin/git/linkedin/device-driver/exercises/chapter4/brdx.mod := { echo  /home/kevin/git/linkedin/device-driver/exercises/chapter4/brdx.o; echo; } > /home/kevin/git/linkedin/device-driver/exercises/chapter4/brdx.mod

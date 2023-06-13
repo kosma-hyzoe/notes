@@ -107,20 +107,19 @@ module_exit(cleanup_simple);
 * `make tags  && vim -t printk`
     * `ctrl+]` / `ctrl+t` - go to tag declaration/move back
 
-## Common dependencies
+### Common dependencies
 
 * tags: `apt install exuberant-ctags`
-
-## Licensing
-
-* `EXPORT_SYMBOL` / `EXPORT_SYMBOL_GPL`
 
 ## Debug file system
 
 * `Documentation/filesystems/debugfs`
+* `cpuwalk.bt`
 * `bpftrace`, `crash` (on crash dumps or `/proc/kcore`)
 
 ```bash
+cat /sys/kernel/debug/tracing/available_tracers
+
 cd /sys/kernel/debug
 echo 0 > tracing_on # disable t
 echo function_graph >  current_tracer
@@ -131,11 +130,26 @@ sleep 1
 echo 0 > tracing_on
 cat trace > /tmp/t
 
-cd /examples/skeleton
-cat callsub.c
+cd /sys/kernel/debug/tracing
+echo :mod:multifile > set_ftrace_filter
+echo > trace
+echo 1 > tracing_on
+insmod /tmp/mymodule.ko
+cat trace
 
+cd /lib/modules/$(uname -r)/build
+crash vmlinux/proc/kcore
 ```
 
+## The `/dev` directory
 
-* `cat /sys/kernel/debug/tracing/available_tracers`
+* a ram-based temp system
+* create block or char device: `mknod device_name b minor_number major_number`
+* removable drives should be mounted, not used as device files
+
+## Drivers
+
+* most driver functions are executed in process context in privileged kernel
+    mode.
+*
 

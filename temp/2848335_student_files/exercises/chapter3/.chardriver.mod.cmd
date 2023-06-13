@@ -1,0 +1,1 @@
+cmd_/home/kevin/git/linkedin/device-driver/exercises/chapter3/chardriver.mod := { echo  /home/kevin/git/linkedin/device-driver/exercises/chapter3/chardriver.o; echo; } > /home/kevin/git/linkedin/device-driver/exercises/chapter3/chardriver.mod
