@@ -1,1 +1,0 @@
-cmd_/home/kevin/git/linkedin/device-driver/exercises/chapter4/ramdisk.mod := { echo  /home/kevin/git/linkedin/device-driver/exercises/chapter4/ramdisk.o; echo; } > /home/kevin/git/linkedin/device-driver/exercises/chapter4/ramdisk.mod
