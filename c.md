@@ -69,7 +69,7 @@ void pstr_alloc(char **sp) {*sp = malloc(127); }
 ```c
 /* define a function pointer typedef named func_ptr */
 typedef int (*func_ptr)(int, int);
-/* is already derefrenced within the declaration */
+/* is already derefrenced within [the](the) declaration */
 void ipp_append(int **ip) { (*ip)++ ;}
 /* `&` is allowed, but not required. equivalent of `*str`/`str[0]` */
 void (*fp)(int **) = &ipp_append;
