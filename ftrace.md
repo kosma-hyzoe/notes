@@ -126,7 +126,7 @@ echo nobranch > trace_options
 * `strace -t` - show time of date
 * `strace -o OUTPUT` - redirect to file
 * `strace -T` - print command time spent in system calls
-* `strace -d` - show debugginf output
+* `strace -d` - show debugging output
 
 * `sudo strace -e trace=$SYS_FUNCS_CALL $LINUX_COMMAND` - trace specific
   sys calls only (can specify multiple, i.e. `trace=write,read`)
