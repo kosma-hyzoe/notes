@@ -1,1 +1,0 @@
-cmd_/home/m.hyzorek/notes/temp/linux-driver-challenges/Module.symvers := sed 's/\.ko$$/\.o/' /home/m.hyzorek/notes/temp/linux-driver-challenges/modules.order | scripts/mod/modpost -m -a  -o /home/m.hyzorek/notes/temp/linux-driver-challenges/Module.symvers -e -i Module.symvers   -T -

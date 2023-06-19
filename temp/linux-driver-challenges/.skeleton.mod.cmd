@@ -1,1 +1,0 @@
-cmd_/home/m.hyzorek/notes/temp/linux-driver-challenges/skeleton.mod := { echo  /home/m.hyzorek/notes/temp/linux-driver-challenges/skeleton.o;  echo; } > /home/m.hyzorek/notes/temp/linux-driver-challenges/skeleton.mod
