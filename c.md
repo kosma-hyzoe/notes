@@ -181,7 +181,7 @@ struct myTable {
     float myFloat;
   } entries[11];
 };
-
+union myUnion u = {u: 4.14}; // gcc / GNU extension?
 union myUnion u = {.f = 4.14};  // designated initializers
 ```
 
