@@ -365,6 +365,8 @@ you'd call `MIN(get_random_number(), b)`
 
 ### gdb
 
+* `q`/ `quit`
+* `run`
 * `list 9` \ `l` - 5 lines before and after line 9
 * `print sum`/`p sum`
 * `print main::i`
