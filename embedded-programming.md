@@ -2,6 +2,16 @@
 
 * newlib
 
+## Questions
+
+* Alu?
+* EABI?
+* SRAM
+* MMU? Virtual memory?
+* state machine?
+* task switching: stack counter, link register and program counter
+* special purpose program status registers, apsrc
+
 ## Examining binaries
 
 * `hd`
@@ -26,7 +36,6 @@ arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=soft -g 
 arm-none-eabi-objcopy -O binary -S build/main.elf build/main.bin
 ```
 
-## Makefile
+## Linux from scratch
 
-```
-
+* `ct-ng list-samples`
