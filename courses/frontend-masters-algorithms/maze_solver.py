@@ -1,4 +1,5 @@
 from collections import namedtuple
+import sys
 
 Point = namedtuple('Point', ['x', 'y'])
 
@@ -12,7 +13,7 @@ MAZE = ["xxxxxxxxxxSx",
         "x          x",
         "xExxxxxxxxxx"]
 
-way = [[" " for _ in range(ROW_LENGHT)] for _ in range(N_ROWS)]
+path: [Point] = []
 visited: [Point] = []
 
 """off map, is wall, been there, the end"""
@@ -20,36 +21,40 @@ visited: [Point] = []
 def print_way():
     pass
 
-def walk_maze(maze: list[str], pos: Point):
-        for dr in [(x - 1, y), (x + 1, y), (x, y - 1),(x, y + 1)]:
-            if dr.x not in range(0, ROW_LENGHT) or dr.y not in range(0, N_ROWS):
-                solve_maze(
-            elif dr in visited:
-                return False
-            elif MAZE[dr.y][dr.x] == "#":
-                visited.append(dr)
-                return False
+def is_walkable(p: Point):
+    return p.x in range(0, ROW_LENGHT) and p.y in range(0, N_ROWS) \
+            and MAZE[p.y][p.x] != "#"
 
-            print_way()
-            if MAZE[dr.y][dr.x] == "E":
-                sys.exit(0)
-            else:
-                return False
 
-def solve_maze(maze: list[str], start: Point):
-    pos = start
-    for y in range(0, N_ROWS):
-        for x in range(0, ROW_LENGHT):
-            if (x, y) == pos:
-                if not walk_maze(maze, pos):
+def walk_maze(maze: list[str], p: Point, end: Point):
+    while p != end:
+        drs = [Point(p.x - 1, p.y), Point(p.x + 1, p.y),
+               Point(p.x, p.y - 1), Point(p.x, p.y + 1)]
+        for dr in drs:
+            if is_walkable(dr) and dr not in visited:
+                p = dr
+                if walk_maze(maze, dr, end):
+                    path.append(dr)
+                    return True
+                else:
+                    visited.append(dr)
+        return False
+    return True
+
+def solve_maze(maze: list[str], start: Point, end: Point):
+    if not walk_maze(maze, start, end):
+        exit(1)
+
 
 
 
 
 if __name__ == "__main__":
-    start = Point(MAZE[0].index("S"), 0)
-    end = Point(MAZE[N_ROWS].index("E"))
+    sys.setrecursionlimit(1500)
+    start = Point(10, 0)
+    end = Point(1, N_ROWS)
 
-    print(solve_maze(MAZE, start, end))
+    solve_maze(MAZE, start, end)
+    print(path)
 
 
