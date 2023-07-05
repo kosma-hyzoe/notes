@@ -23,23 +23,23 @@ def print_way():
 
 def is_walkable(p: Point):
     return p.x in range(0, ROW_LENGHT) and p.y in range(0, N_ROWS) \
-            and MAZE[p.y][p.x] != "#"
+            and MAZE[p.y][p.x] != WALL
 
 
 def walk_maze(maze: list[str], p: Point, end: Point):
-    while p != end:
+    if p == end:
+        return True
+    elif is_walkable(p) and p not in visited:
+        path.append(p)
         drs = [Point(p.x - 1, p.y), Point(p.x + 1, p.y),
                Point(p.x, p.y - 1), Point(p.x, p.y + 1)]
         for dr in drs:
-            if is_walkable(dr) and dr not in visited:
-                p = dr
-                if walk_maze(maze, dr, end):
-                    path.append(dr)
-                    return True
-                else:
-                    visited.append(dr)
-        return False
-    return True
+            if walk_maze(maze, dr, end):
+                return True
+            else:
+                visited.append(dr)
+        path.pop()
+    return False
 
 def solve_maze(maze: list[str], start: Point, end: Point):
     if not walk_maze(maze, start, end):
