@@ -6,53 +6,51 @@ Point = namedtuple('Point', ['x', 'y'])
 WALL = "x"
 ROW_LENGHT = 12
 N_ROWS = 6
-MAZE = ["xxxxxxxxxxSx",
+MAZE = ["xxxxxxxxxx x",
         "x        x x",
         "x        x x",
         "x xxxxxxxx x",
         "x          x",
-        "xExxxxxxxxxx"]
+        "x xxxxxxxxxx"]
 
 path: [Point] = []
 visited: [Point] = []
 
-"""off map, is wall, been there, the end"""
 
 def print_way():
     pass
 
-def is_walkable(p: Point):
+def is_walkable(maze, p: Point):
     return p.x in range(0, ROW_LENGHT) and p.y in range(0, N_ROWS) \
-            and MAZE[p.y][p.x] != WALL
+            and maze[p.y][p.x] != WALL
 
 
 def walk_maze(maze: list[str], p: Point, end: Point):
-    if p == end:
-        return True
-    elif is_walkable(p) and p not in visited:
+    if not is_walkable(maze, p) or p in visited:
+        return False
+    elif p == end:
         path.append(p)
-        drs = [Point(p.x - 1, p.y), Point(p.x + 1, p.y),
-               Point(p.x, p.y - 1), Point(p.x, p.y + 1)]
-        for dr in drs:
-            if walk_maze(maze, dr, end):
-                return True
-            else:
-                visited.append(dr)
-        path.pop()
-    return False
+        return True
+    visited.append(p)
+
+    path.append(p)
+    drs = [Point(p.x - 1, p.y), Point(p.x + 1, p.y),
+           Point(p.x, p.y - 1), Point(p.x, p.y + 1)]
+
+    for dr in drs:
+        if walk_maze(maze, dr, end):
+            return True
+    path.pop()
 
 def solve_maze(maze: list[str], start: Point, end: Point):
     if not walk_maze(maze, start, end):
+        print(path)
         exit(1)
 
 
-
-
-
 if __name__ == "__main__":
-    sys.setrecursionlimit(1500)
     start = Point(10, 0)
-    end = Point(1, N_ROWS)
+    end = Point(1, N_ROWS - 1)
 
     solve_maze(MAZE, start, end)
     print(path)
