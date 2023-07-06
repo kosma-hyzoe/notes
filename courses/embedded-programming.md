@@ -1,5 +1,6 @@
 # Embedded programming
 
+* # reg = <0x47000000 0xaa4200>; Address of the Kernel and size of Kernel image. To find out the size we can use 'printf "0x%x\n" $(stat -c %s build/Image)'
 * newlib
 
 ## Questions
