@@ -4,7 +4,7 @@
 * `Documentation/devicetree/bindings`
 * [Design principles](https://youtu.be/Nz6aBffv-Ek?t=1739)
 
-* `.dtsi` files are included in a final `.dts` file. `dts` only compiles `.dts`.
+* `.dtsi` files are included in a final `.dts` file. `dtc` only compiles `.dts`.
 * `.dtsi` commonly used for SoC-level info, `.dts` for board-level info TODO
 * can overwrite devices from `.dtsi` in `.dts` by &device name or rewriting the
 device with a new property [like this](https://youtu.be/Nz6aBffv-Ek?t=1108)

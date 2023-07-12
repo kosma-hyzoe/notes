@@ -16,3 +16,4 @@
  	* równolegle to samo napięcie
 	* szeregowo suma napięć jest równa napięciu zasilającemu
 	* U-wyj = U-zas * r1 / (r1 + r2)
+* dławik stanowi duży opór dla AC, mały dla DC
