@@ -1,0 +1,11 @@
+pandas==1.5.3
+matplotlib==3.6.3
+numpy==1.24.1
+scikit-learn==1.2.1
+scipy==1.10.0
+html5lib==1.1
+seaborn==0.12.2
+cufflinks>=0.17
+jupyterlab
+cufflinks>=0.17
+lxml
