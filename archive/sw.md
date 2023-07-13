@@ -42,4 +42,19 @@ int main() {
 * `bucket` - dobrze ustawić size na sqrt(n), wtedy tyle też będzie wynosić count
   kubełków
 
-## Recurrency and backtracking
+## Grafy
+
+* zbiór wierchołow i krawędzi
+* ścieżka - ciąg wierchołków?
+* cykl - zaczynają się i kończą w jednym wierzchołku
+* graf spójny - każdą parę łączy ścieżka
+* drzewo - graf bez cykli, n wierchołków, n-1 krawędzi
+* V - vertex, zbiór wierzchołków
+* ukorzenianie drzew
+* n * (n - 1) / 2 dla nieskierowanych, n * (n -1) dla skierowanych
+  * LUB n * n dla skierowanych (np. pass w grze, ścieżka widokowa)
+* macierz sąsiedztwa, listy sąsiedztwa/następników (może przechowywać więcej
+  danych)
+* wydajność listy sąsiedzstwa zależy od gęstości grafu
+  w macierzy możemy zastąpić `int[][]` mapą lub słownikiem
+* reprezentacja niejawna - np. przy ruchach na szachownicy
