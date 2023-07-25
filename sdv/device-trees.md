@@ -3,8 +3,9 @@
 * [Basic syntax specs](https://www.devicetree.org/specifications)
 * `Documentation/devicetree/bindings`
 * [Design principles](https://youtu.be/Nz6aBffv-Ek?t=1739)
+* [DT for dummies presentation](https://bootlin.com/pub/conferences/2014/elc/petazzoni-device-tree-dummies/petazzoni-device-tree-dummies.pdf)
 
-* `.dtsi` files are included in a final `.dts` file. `dtc` only compiles `.dts`.
+* `.dtsi` files are included in a final `.dts` file. `dtb` only compiles `.dts`.
 * `.dtsi` commonly used for SoC-level info, `.dts` for board-level info TODO
 * can overwrite devices from `.dtsi` in `.dts` by &device name or rewriting the
 device with a new property [like this](https://youtu.be/Nz6aBffv-Ek?t=1108)
