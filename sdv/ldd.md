@@ -10,3 +10,10 @@
 
 * `EXPORT_SYMBOL(name)` / `EXPORT_SYMBOL_GPL(name)`
 * kernel can make use of facility immiediately after registration
+
+* `cat /proc/sys/kernel/printk`
+	* current
+	* default for non-explicit messages
+	* min. allowed level
+	* boot-time default log level
+	* can simply `cat 8 >` to set current and ignore others
