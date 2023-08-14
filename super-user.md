@@ -3,11 +3,6 @@
 New shortcuts and features to memorize and learn regularly. If it's here it
 hasn't become "obvious", an instinct, yet.
 
-## Vim
-
-* `vip`
-* cat split-me.txt | tr ";" "\n"
-
 ## grep
 
 * -h - skip file names
@@ -16,6 +11,7 @@ hasn't become "obvious", an instinct, yet.
 
 ## Unix
 
+* cat split-me.txt | tr ";" "\n"
 * `|&` for piping 0 1 and 2
 * `mkdir -p music/{rock/{punk,goth},classical/{baroque,early}}`
 * `find . -type f -name '*.gz' -exec rm {} + `
