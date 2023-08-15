@@ -39,6 +39,7 @@
 * debugging
 * treesitter
 * lsp
+* lualine
 
 ## Buffers and file manipulation
 
@@ -58,10 +59,15 @@
 * `:earlier 2m`
 * `<ctrl+u>`(insert mode) - delete characters from start of line till cursor 
 
-
 ### Registers
 
 * `"+` - clipboard register
 * `"*` - primary register
 * `V"by` - copy line to register b
 * `"0p` - paste from non-volatile yank register
+
+
+## Unixsane
+
+* tmux
+* lf
