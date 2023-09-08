@@ -1,9 +1,20 @@
-# Theory part 1
+# Git
 
-## Git
+## Questions
 
-There are system, local(repository) and global(user) configs. The system ones override
-global, local overrides system.
+* `--depth=1`?
+* keep git from overridding ln?
+* remove from repo without removing local files
+* ogólne zasady
+
+## Misc
+
+* `git diff` , `--cached`
+* `git restore` - restore all local changes, with flags like diff
+* `git log -grep`, `-author`
+* git merge z gałęzi docelowej!
+* git merge ---continue ~= git commit
+* fast-forward merge - point dest branch to a newer branch
 
 ## Git file statuses
 
@@ -47,38 +58,4 @@ git log -n 5
 * git reset --hard *commit id*
 * git reset --hard origin/master
 
-
-## Jenkins
-
-discard builds **older than OR when there are more than**
-
-### Build triggers
-
-* manual
-* after other build
-* on a vcs push
-* via api
-* with cron expressions
-
-### CRON
-
-* m / min
-* h / hour
-* dom / day of month
-* mon / month
-* dow / day of week
-
-* H - random over range (spread the load evenly)
-* \* - all
-* ? - any
-* '-' - range
-* , - multiple values
-* / - increments(ie. `5/15 * * * *` - every )
-* \# - "N-th"
-* W - weekday
-* L - kast
-
-
-* The H symbol can be used with a range. For example, H H(0-7) * * * means some time between 12:00 AM (midnight) to 7:59
-AM. You can also use step intervals with H, with or without ranges.
 
