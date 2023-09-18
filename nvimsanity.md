@@ -1,5 +1,7 @@
 # Nvimsanity 
 
+## Tabs + splits
+
 ## Telescope
 
 * `,ff` - find file
