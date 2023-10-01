@@ -52,7 +52,7 @@ git log -n 5
 * git remote add origin *link to repo*
 * git remote -v - show connected remote repositories
 * git push -u origin master - set upstream for the future and push
-^
+
 * git commit -m message -m description
 
 * git reset --hard *commit id*
