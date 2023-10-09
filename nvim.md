@@ -1,4 +1,4 @@
-# Nvimsanity 
+# Nvim
 
 ## Tabs + splits
 
