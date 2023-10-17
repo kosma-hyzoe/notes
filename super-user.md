@@ -8,6 +8,11 @@ hasn't become "obvious", an instinct, yet.
 * -h - skip file names
 * -l - print names only
 * -n - prefix with line numbers
+* `git grep`
+
+# alacritty
+
+* `ctrl+shift+space` - vim mode
 
 ## Unix
 
