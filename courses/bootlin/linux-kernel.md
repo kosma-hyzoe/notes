@@ -1,6 +1,6 @@
 ## Cross compilation
 
-* `cat /proc/cmdline`
+* `c<board>at /proc/cmdline`
 
 ## Config
 
@@ -91,3 +91,7 @@ all:
 <tab>$(MAKE) -C $(KDIR) M=$$PWD
 endif
 ```
+
+## Describing hardware devices
+
+ 
