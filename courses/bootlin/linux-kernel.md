@@ -94,4 +94,8 @@ endif
 
 ## Describing hardware devices
 
- 
+### Device tree
+
+* phandle, `<&node1>` - points to another node
+* `<1 3 4 5>` - a tuple containing four cells
+* 
