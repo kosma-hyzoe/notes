@@ -98,4 +98,11 @@ endif
 
 * phandle, `<&node1>` - points to another node
 * `<1 3 4 5>` - a tuple containing four cells
-* 
+* `Documentation/device-tree/bindings` 
+* Device Tree Bindings → documents that each specify
+how a piece of HW should be described
+* DeviceTree Specifications → base Device Tree syntax +
+  number of standard properties.
+* `struct of_device_id[]` - list of supported `compatible` strings
+* In .dtsi files describing SoCs: all devices that interface to the outside world have
+status = disabled. Enabled on a per-device basis in the board .dts

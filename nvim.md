@@ -67,9 +67,3 @@
 * `"*` - primary register
 * `V"by` - copy line to register b
 * `"0p` - paste from non-volatile yank register
-
-
-## Unixsane
-
-* tmux
-* lf
