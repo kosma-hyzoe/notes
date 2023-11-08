@@ -104,5 +104,10 @@ how a piece of HW should be described
 * DeviceTree Specifications → base Device Tree syntax +
   number of standard properties.
 * `struct of_device_id[]` - list of supported `compatible` strings
-* In .dtsi files describing SoCs: all devices that interface to the outside world have
-status = disabled. Enabled on a per-device basis in the board .dts
+* In .dtsi files describing SoCs: all devices that interface to the outside
+  world have status = disabled. Enabled on a am335x-boneblack.dtb per-device
+  basis in the board .dts
+
+### Pin muxing
+
+* Documentation/devicetree/bindings/pinctrl
