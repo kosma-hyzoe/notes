@@ -1,5 +1,8 @@
 # Nvim
 
+* setting `path` when `gf`-ing
+* `[I` ,`[<Tab>`
+
 ## Tabs + splits
 
 ## Telescope
