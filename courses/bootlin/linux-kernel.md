@@ -1,6 +1,7 @@
 ## Cross compilation
 
-* `c<board>at /proc/cmdline`
+Kudos to folks over at [Bootlin](https://bootlin.com/training/kernel/) for
+making this available under Creative Commons BY-SA.
 
 ## Config
 
@@ -92,9 +93,7 @@ all:
 endif
 ```
 
-## Describing hardware devices
-
-### Device tree
+## Device tree
 
 * phandle, `<&node1>` - points to another node
 * `<1 3 4 5>` - a tuple containing four cells
@@ -104,10 +103,43 @@ how a piece of HW should be described
 * DeviceTree Specifications → base Device Tree syntax +
   number of standard properties.
 * `struct of_device_id[]` - list of supported `compatible` strings
-* In .dtsi files describing SoCs: all devices that interface to the outside
-  world have status = disabled. Enabled on a am335x-boneblack.dtb per-device
-  basis in the board .dts
 
-### Pin muxing
+## Device model
 
-* Documentation/devicetree/bindings/pinctrl
+* Driver interfaces with:
+  * a **framework** that exposes it to the hw in a generic way
+  * a **bus infrastructure** that detects the hw and communicates w/ it.
+* 3 main `struct`s:
+    * `bus_type` - reps a particular bus type (USB, PCI, I2C)
+    * `device_driver` (a clumsy inheritance for more specialized versions)
+    * `device` - reps a device connected to a bus (more clumsy inheritance)
+* these are kernel-only. in userspace, `sysfs`.
+  * /sys/bus
+  * /sys/devices
+  * /sys/class
+
+
+### Bus drivers
+
+Responsible for: 
+* basically a bunch of non-specialized stuff that device drivers are not.
+* Registering the bus type (`struct bus_type`)
+* Registration of adapter drivers
+* (Possibly) able to detect the connected devices providing a
+  communication mechanism with the devices
+* Allowing the registration of device drivers
+* Managing the devices TODO
+* Matching the device drivers against the devices detected by the adapter
+  drivers
+* API to implement both adapter drivers and device drivers
+* Defining driver and device specific structures, mainly struct usb_driver and
+  struct usb_interface
+    
+
+* A controller is a hardware component responsible for managing the operation
+  of a specific device. I.e. disk, USB or controller, etc.
+* An adapter is a hardware or software component that allows two different
+  systems or components to work together. 
+  * if hardware, it may require a driver.
+
+
