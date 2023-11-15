@@ -147,5 +147,9 @@ Responsible for:
 * `devtmps` TODO
 * `get_user(v, p)`, `put_user(v, p)`
 * `nmap()` zero copy (no buffer)
+* `devm_kmalloc`
+* 
+
+
 
 
