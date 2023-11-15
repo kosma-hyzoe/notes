@@ -142,4 +142,10 @@ Responsible for:
   systems or components to work together. 
   * if hardware, it may require a driver.
 
+## Kernel frameworks for device drivers
+
+* `devtmps` TODO
+* `get_user(v, p)`, `put_user(v, p)`
+* `nmap()` zero copy (no buffer)
+
 
