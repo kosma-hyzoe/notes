@@ -33,7 +33,7 @@ making this available under Creative Commons BY-SA.
 * `modprobe -r` - remove with dependencies
 * you can set default parameters in `/etc/modprobe.conf` or `/etc/modprobe.d/`
 * you can set parameters in the kernel command line
-* `echo 0 > /sys/module/<module_name>/parameters/<param_name>` - 
+* `echo 0 > /sys/module/<module_name>/parameters/<param_name>` -
   edit params during runtime
 
 ## Compilation
@@ -97,7 +97,7 @@ endif
 
 * phandle, `<&node1>` - points to another node
 * `<1 3 4 5>` - a tuple containing four cells
-* `Documentation/device-tree/bindings` 
+* `Documentation/device-tree/bindings`
 * Device Tree Bindings → documents that each specify
 how a piece of HW should be described
 * DeviceTree Specifications → base Device Tree syntax +
@@ -121,7 +121,7 @@ how a piece of HW should be described
 
 ### Bus drivers
 
-Responsible for: 
+Responsible for:
 * basically a bunch of non-specialized stuff that device drivers are not.
 * Registering the bus type (`struct bus_type`)
 * Registration of adapter drivers
@@ -134,13 +134,25 @@ Responsible for:
 * API to implement both adapter drivers and device drivers
 * Defining driver and device specific structures, mainly struct usb_driver and
   struct usb_interface
-    
+
 
 * A controller is a hardware component responsible for managing the operation
   of a specific device. I.e. disk, USB or controller, etc.
 * An adapter is a hardware or software component that allows two different
-  systems or components to work together. 
+  systems or components to work together.
   * if hardware, it may require a driver.
+
+## I2C
+
+* Adapter (master, controller, bus :') )
+    * initiates transactions
+    * usually one
+    * no address
+* Client (slave, device)
+    * responds to transactions
+    * many per bus
+    * 7 bit address in hardware
+
 
 ## Kernel frameworks for device drivers
 
@@ -148,8 +160,56 @@ Responsible for:
 * `get_user(v, p)`, `put_user(v, p)`
 * `nmap()` zero copy (no buffer)
 * `devm_kmalloc`
-* 
+* `/sys/class`
 
 
+## Input subsysterm
 
+* app -> syscall interface -> char driver api -> **input subsystem** -> drivers
+* events composed by `input_event()`, sent by `input_sync()`.
+* polled periodically, no support for interrupts
 
+## Kernel Memory
+
+* virtual mem: top quarter is kernel space, the lower part is
+  exclusive for each process
+* `CONFIG_VMSPLIT_2G` etc. on 32bit systems
+* after loading program to RAM, additional mappings can be made:
+  * mem allocations
+  * mem mapped files
+  * `mmap'ed areas
+* user mem is allowed to over-commit memory, preventable with
+  `/proc/sys/vm/overcommmit_*`. OOM kills some processes then.
+* `kmalloc (slab caches) vs vmalloc(non-physically contiguous)? TODO
+* CMA, contihuous memory allocator, for reserving memory at boot
+* `GFP_KERNEL` - standard mem alloc, may block
+* `GFP_ATOMIC` - code not allowed to block, i.e. irq or critical sections
+* `SLABs` are multiplied caches(objects) of fixed, small size(i.e. 512-1024 bytes)
+  for some of the kernel data
+  structures. SLAB, SLOB and SLUB are slightly different, SLUB is now standard.
+* `kmalloc`
+  * depends on slabs for small allocations, pages for larger ones
+  * the standard kernel alloc
+  * `kzalloc` - zero-initialized
+  * `kcalloc` - kzalloc for n-element arrays
+  * `krealloc` - reallocates, can resize
+  * `kfree`
+  * all have `devm_` equivalents!
+
+### Kernel mem debugging
+
+* KASAN (Kernel Address Sanitizer)
+  * Dynamic memory error detector, to find use-after-free and out-of-bounds bugs.
+  * Available on most architectures
+  * See dev-tools/kasan for details.
+* KFENCE (Kernel Electric Fence)
+  * A low overhead alternative to KASAN, trading performance for precision. Meant to
+  be used in production systems.
+  * Only available on x86, arm64 and powerpc (Linux 5.13 status)
+  * See dev-tools/kfence for details.
+* Kmemleak
+  * Dynamic checker for memory leaks
+  * This feature is available for all architectures.
+  * See dev-tools/kmemleak for details
+* to access I/O memory as virtual addresses, you need `ioremap()`, preferably
+  `devm_ioremap()`

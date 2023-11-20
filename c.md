@@ -621,6 +621,7 @@ thread in the same process that calls `pthread_join()`.
   ```c
   pthread_exit((void *) exit_status);
   ```
+	input->name = "Wii Nunchuck";
 
 * `pthread_self()`: This function returns the ID of the calling thread. This can
 be useful for debugging or for control structures that need to know the current
