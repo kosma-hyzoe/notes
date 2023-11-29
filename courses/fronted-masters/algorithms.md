@@ -17,3 +17,15 @@ for i in range(i, n):
 		swap(j , j+1)
 ```
 
+## Binary tree comp
+
+```python
+def comp(a, b):
+    if not a and not b:
+        return True
+    if not a or not b:
+        return False
+    if a != b:
+        return False
+    reutrn comp(a.left, b.left) && comp(a.right, b.right)
+```
