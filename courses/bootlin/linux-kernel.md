@@ -213,3 +213,17 @@ Responsible for:
   * See dev-tools/kmemleak for details
 * to access I/O memory as virtual addresses, you need `ioremap()`, preferably
   `devm_ioremap()`
+
+### ?
+
+* `platform_get_resource` - retrieve a device physical address from the dt.
+
+### Process, thread, task
+
+* process is made using `fork()`. consists of:
+  * an address space containing program code, data, stack, etc.
+  * a single thread known by the scheduler
+* more threads can be made using `pthread_create()`. they will run in the same
+address space.
+* each thread has an associated `struct task_struct`.
+* interrupt context/process context
