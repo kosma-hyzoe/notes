@@ -755,9 +755,7 @@ blocked thread waiting on the semaphore, if any.
   sem_post(&sem);
   ```
 
-*
-
- `sem_destroy()`: This function destroys a semaphore.
+* `sem_destroy()`: This function destroys a semaphore.
 
   ```c
   sem_destroy(&sem);
