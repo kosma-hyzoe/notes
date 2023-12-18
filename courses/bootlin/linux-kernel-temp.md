@@ -1,5 +1,10 @@
 # Foo
 
+* use `devm_request_irq()` in `probe()`
+* interrupt handlers don't handle sleep!
+* Interrupt handlers are run with all interrupts disabled on the local CPU (see
+https://lwn.net/Articles/380931).
+
 * "wake_up() / wake_up_interruptible() wakes up all non-exclusive tasks and only
 one exclusive task"
 * wake_up_all() / wake_up_interruptible_all() wakes up all non-exclusive and all
@@ -22,3 +27,5 @@ exclusive tasks
       condition was met.
 * `wait_for_completion()` - no condition, adds add the end(?) of wait queue
 * cat /sys/kernel/debug/irq/irqs/
+
+*
