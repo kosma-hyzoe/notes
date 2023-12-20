@@ -227,3 +227,5 @@ Responsible for:
 address space.
 * each thread has an associated `struct task_struct`.
 * interrupt context/process context
+* to sleep, must declare a wait queue, which will be used to store the list of
+  threads waiting for an even
