@@ -231,3 +231,36 @@ address space.
 * interrupt context/process context
 * to sleep, must declare a wait queue, which will be used to store the list of
   threads waiting for an even
+
+## Interrupts
+
+* use `devm_request_irq()` in `probe()`
+* interrupt handlers don't handle sleep!
+* Interrupt handlers are run with all interrupts disabled on the local CPU (see
+https://lwn.net/Articles/380931).
+
+* "wake_up() / wake_up_interruptible() wakes up all non-exclusive tasks and only
+one exclusive task"
+* wake_up_all() / wake_up_interruptible_all() wakes up all non-exclusive and all
+exclusive tasks
+
+* `void wait_event(queue, condition);`
+    * Sleeps until the task is woken up and the given C expression is true.
+* `int wait_event_killable(queue, condition);`
+    * Can be interrupted, but only by a fatal signal (SIGKILL). Returns -ERESTARTSYS if
+      interrupted.
+* `int wait_event_interruptible(queue, condition);`
+    * Can be interrupted by any signal. Returns -ERESTARTSYS if interrupted.
+* int wait_event_timeout(queue, condition, timeout);
+    * Also stops sleeping when the task is woken up or the timeout expired (a timer is
+      used).
+    * Returns 0 if the timeout elapsed, non-zero if the condition was met.
+* int wait_event_interruptible_timeout(queue, condition, timeout);
+    * Same as above, interruptible.
+    * Returns 0 if the timeout elapsed, -ERESTARTSYS if interrupted, positive value if the
+      condition was met.
+* `wait_for_completion()` - no condition, adds add the end(?) of wait queue
+* cat /sys/kernel/debug/irq/irqs/
+
+
+## DMA
