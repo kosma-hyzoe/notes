@@ -3,6 +3,12 @@
 Kudos to folks over at [Bootlin](https://bootlin.com/training/kernel/) for
 making this available under Creative Commons BY-SA.
 
+
+## Rearead me!
+
+* Resources: interrupts, clocks, DMA, reset lines
+
+
 ## Cross compilation
 
 ## Config
@@ -57,7 +63,7 @@ sudo make install
 
 # installs modules
 sudo make modules_install
-```
+``
 
 ## Boot
 
