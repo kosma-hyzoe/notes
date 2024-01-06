@@ -3,6 +3,19 @@
 * setting `path` when `gf`-ing
 * `[I` ,`[<Tab>`
 
+## Vim-markdown
+
+* `zm`: increases fold level throughout the buffer
+* `zc`: close a fold your cursor is on
+* `zC`: close a fold your cursor is on recursively
+
+* `zR`: opens all folds
+* `zM`: folds everything all the way
+
+* `za`: open a fold your cursor is on
+* `zA`: open a fold your cursor is on recursively
+* `zr`: reduces fold level throughout the buffer
+
 ## Tabs + splits
 
 ## Telescope
@@ -62,7 +75,7 @@
 * `c-f`/`c-b` page forward/backwards
 * `25%`
 * `:earlier 2m`
-* `<ctrl+u>`(insert mode) - delete characters from start of line till cursor 
+* `<ctrl+u>`(insert mode) - delete characters from start of line till cursor
 
 ### Registers
 
