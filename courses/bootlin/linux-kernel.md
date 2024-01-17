@@ -228,11 +228,14 @@ Responsible for:
 
 ### Process, thread, task
 
+* forked processes are concurrent and isolated (separate memeory)
+* threads are concurrent, but use the same address space
 * process is made using `fork()`. consists of:
   * an address space containing program code, data, stack, etc.
   * a single thread known by the scheduler
 * more threads can be made using `pthread_create()`. they will run in the same
 address space.
+* ...so threads are a subset of forks in a way?
 * each thread has an associated `struct task_struct`.
 * interrupt context/process context
 * to sleep, must declare a wait queue, which will be used to store the list of
