@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+alias makemods="make -C /lib/modules/$(uname -r)/build M=$PWD modules" \
+    cores="cd /var/lib/apport/coredump" \
+    armcc="export ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-"
