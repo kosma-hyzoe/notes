@@ -3,6 +3,10 @@
 New shortcuts and features to memorize and learn regularly. If it's here it
 hasn't become "obvious", an instinct, yet.
 
+## misc
+
+* `man 1 signal`
+
 ## grep
 
 * -h - skip file names
