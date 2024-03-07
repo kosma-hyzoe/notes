@@ -13,7 +13,7 @@
 
 * redirections redirect file streams, pipes redirect output trees
 *  `./install_package.sh > file.txt 2>&1` is an equivalent of
-   `./install_package.sh > file.txt > file.txt` 
+   `./install_package.sh > file.txt > file.txt`
 
 ## Operators
 
@@ -81,8 +81,8 @@ b=${letters:0:2}
 ## Loops
 
 `continue [n]` tells your bash script to stop the current iteration of the loop and
-start the next iteration. The [n] argument is optional and can be greater than 
-or equal to 1. When [n] is given, the n-th enclosing loop is resumed. continue
+start the next iteration. The `[n]` argument is optional and can be greater than
+or equal to 1. When `[n]` is given, the n-th enclosing loop is resumed. continue
 1 is equivalent to continue.
 
 ### Switch case
@@ -175,4 +175,3 @@ case $a in
 WrongCommand;;
 esac
 ```
-

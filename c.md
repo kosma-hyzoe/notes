@@ -61,7 +61,6 @@ void str_alloc(char *s) { s = malloc(127); };
 void indrct_pstr_alloc(char *s) {*(&s) = malloc(127); }
 /* this one will */
 void pstr_alloc(char **sp) {*sp = malloc(127); }
-
 ```
 
 #### function pointers
