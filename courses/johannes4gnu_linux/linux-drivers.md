@@ -1,2 +1,0 @@
-* gpiohandle_request
-* 

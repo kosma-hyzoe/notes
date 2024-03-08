@@ -2,6 +2,7 @@
 
 ## Misc
 
+* `cat <(echo foo)`
 * `read -p "some prompt" bar`
 * `rm -f $0 # autodelete the script`
 * `my_array=("foo" "bar")`

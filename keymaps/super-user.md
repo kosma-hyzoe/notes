@@ -3,6 +3,8 @@
 New shortcuts and features to memorize and learn regularly. If it's here it
 hasn't become "obvious", an instinct, yet.
 
+## `lf`
+
 
 ## Lua
 
@@ -33,16 +35,12 @@ require("mymodlue")
 
 * `man 1 signal`
 
-## grep
+## `grep`
 
 * -h - skip file names
 * -l - print names only
 * -n - prefix with line numbers
 * `git grep`
-
-# alacritty
-
-* `ctrl+shift+space` - vim mode
 
 ## Unix
 
