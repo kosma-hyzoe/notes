@@ -3,8 +3,9 @@
 New shortcuts and features to memorize and learn regularly. If it's here it
 hasn't become "obvious", an instinct, yet.
 
-## `lf`
+## fzf
 
+* ctrl+r, alt+c, ctrl+t
 
 ## Lua
 
