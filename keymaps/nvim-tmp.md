@@ -1,7 +1,8 @@
 # Nvim
 
 * setting `path` when `gf`-ing
-* `[I` ,`[<Tab>`
+* `[I` - display lines with word under cursor
+* `[<Tab>`
 
 ## Vim-markdown
 
@@ -16,31 +17,9 @@
 * `zA`: open a fold your cursor is on recursively
 * `zr`: reduces fold level throughout the buffer
 
-## Tabs + splits
-
-## Telescope
-
-* `,ff` - find file
-* `,lg`/`,sg` - live/static grep
-* `,gf` - git files
-
-## LSP
-
-* `<CR>` - confirm
-* `<c-Space>` - trigger autocomplete
-* `,rr` - rename
-
-* `[d`/`]d`- browse diagnostics
-* `K` - hover
-* `,ca` - code action
-* `,od` - open diagnostic
-* `,rr` - list references
-* `,ws` - list symbols
-* `,sh` - signature help
-
 ## Misc
 
-* `{`/`}` - skip text by paragraphs fovkojfw
+* `{`/`}` - skip text by paragraphs
 * `K` - browse man
 * `=ap` - autoindent
 * `vip` - select inside paragraph
