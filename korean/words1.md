@@ -1,8 +1,8 @@
 
-coffee		카피
-teeth		이
-keyboard	키보두
-child		아이
+* coffee - 카피
+* child - 아이
+* teeth - 이
+* keyboard - 키보두
 
 ## See also:
 
