@@ -1,9 +1,15 @@
 ## General
 
+* `yinq` - `[Y]nk [I]nside [N]ext [']quote`
+*  `ci'`  - `[C]hange [I]nside [']quote`
+* `saiw)` - `[S]urround [A]dd [I]nner [W]ord [)]Paren`
+* `sd'`   - `[S]urround [D]elete [']quotes`
+* `sr)'`  - `[S]urround [R]eplace [)] [']`
+
 ## LSP
 
 * `K` - info
-* `,wvs` - workspace_symbol
+* `,wvs` - workspace symbol
 * `,od` - open diagnostic (`[d/]d` - go to next/prev)
 * `,vca` - code actions
 * `,vrr` - references
@@ -12,25 +18,29 @@
 
 ## Telescope
 
-* `,lg` - live grep
-* `,gf` - git files
-* `,ff` - find files
-* `,tg` - tags
-* `,gg` - grep string
-* `,ht` - help tags
-* `,mp` - man pages
-* `,tss` - spell suggest
+* `,sf` - `[S]earch [F]iles`
+* `,sgg` - `[S]earch [G]it files by [G]rep`
+* `,ss` - `[S]pell [S]uggest`
+* `,,` - `Find existing buffers`
+* `,s` - `[s]earch [k]eymaps` })
+* `,sh` - `[S]earch [H]elp` })
+* `,sw` - `[S]earch current [W]ord` })
+* `,sd` - `[S]earch [D]iagnostics` })
+* `,sr` - `[S]earch [R]esume` })
+* `,s.` - `[S]earch Recent Files ("." for repeat)`
+* `,sap` - `[S]earch [A]ll [P]ickers`
 
 ## Misc
 
-* `[s/]s` - next/previous spell error
+* `gj`/`gk`, `g0`/`g$` - navigate wrapped text
+* `[s`/`]s` - next/previous spell error
 * `,nc` - "no comment"
 * `J/K` - move selection up/down
 * `{`/`}` - skip text by paragraphs
 * `K` - browse man
-* `=ap` - autoindent
+* `=ap` - auto indent
 * `vip` - select inside paragraph
-* `gv` reselect previous selection
+* `gv` - reselect previous selection
 * `:32`
 * `,nw`/`,nW` - search forward word/WORD
 * `,ex`
