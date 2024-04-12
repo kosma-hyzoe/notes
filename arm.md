@@ -5,7 +5,7 @@
 * SPI - shared peripheral, any core
 * PPI - private, one core (i.e. generic timer)
 * SGI - software generated, inter-PE, has an SGI register
-* LPI - locality-specific,
+* LPI - locality-specific
 
 States:
 * Inactive
