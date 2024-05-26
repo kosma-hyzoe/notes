@@ -45,6 +45,8 @@ require("mymodlue")
 
 ## Unix
 
+* `fdisk` exists.
+* `man file-hierarchy` exists.
 * cat split-me.txt | tr ";" "\n"
 * `|&` for piping 0 1 and 2
 * `mkdir -p music/{rock/{punk,goth},classical/{baroque,early}}`

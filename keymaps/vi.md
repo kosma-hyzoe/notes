@@ -9,11 +9,11 @@
 ## LSP
 
 * `K` - info
-* `,wvs` - workspace symbol
+* `,ws` - workspace symbols
 * `,od` - open diagnostic (`[d/]d` - go to next/prev)
-* `,vca` - code actions
-* `,vrr` - references
-* `,vrn` - rename
+* `,ca` - code actions
+* `,gr` - references (where are these symbols used)
+* `,rn` - rename
 * `<c-h>` - signature help
 
 ## Telescope
