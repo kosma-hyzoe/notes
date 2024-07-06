@@ -7,7 +7,9 @@ hasn't become "obvious", an instinct, yet.
 
 ## fzf
 
-* ctrl+r, alt+c, ctrl+t
+* ctrl+r,
+* alt+c - cd to selected dir
+* ctrl+t
 
 ## Lua
 
