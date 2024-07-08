@@ -5,4 +5,4 @@
 * `systemctl restart sshd`
 * `journalctl -fu ssh`
 * `/var/log/auth.log`
-* Consider using non-default ports
+* Consider using non-default pors
