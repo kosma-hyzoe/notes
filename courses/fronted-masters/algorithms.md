@@ -8,6 +8,20 @@
 
 * array buffers
 
+## Python3 and Java
+
+python3
+```
+from collections import deque
+
+q = deque(foo)
+q.append()
+q.popleft()
+```
+
+java
+```
+```
 
 ## Sorting
 
