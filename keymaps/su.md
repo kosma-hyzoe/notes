@@ -3,6 +3,8 @@
 New shortcuts and features to memorize and learn regularly. If it's here it
 hasn't become "obvious", an instinct, yet.
 
+
+
 ## gpg
 
 ## fzf
@@ -50,6 +52,7 @@ require("mymodlue")
 ## Unix
 
 * `fdisk` exists.
+* `whereis` exists
 * `man file-hierarchy` exists.
 * cat split-me.txt | tr ";" "\n"
 * `|&` for piping 0 1 and 2
