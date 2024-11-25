@@ -28,7 +28,7 @@ q = queue.Queue()
 dq = queue.deque([1, 2, 3], maxlen=3)
 
 l = [1, 2, 3]
-hq = heapq.heapify(list)
+heapq.heapify(l)
 
 _dq_dc = copy.deepcopy(dq)
 ```
