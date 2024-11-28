@@ -4,6 +4,8 @@
 
 * vertice, edge
 * e <= v^2
+  * m <= n * (n - 1)
+  * m <= n * (n - 1) / 2 (skierowany)
 * directed, undirected
 * representation:
   * matrix (r,c) - labyrinth-style
