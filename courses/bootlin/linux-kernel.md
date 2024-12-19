@@ -1,18 +1,46 @@
 # Linux Device Drivers
 
-Kudos to folks over at [Bootlin](https://bootlin.com/training/kernel/) for
-making this available under Creative Commons BY-SA.
+* `vmalloc`
+  * not physically contiguos
+  * not suitable for DMA
+  * for
 
+## IO mem
 
-## Rearead me!
+* `request_mem_region`/`release_mem_region`
+* `proc/iomem`
+* `read[b/w/l/q]` - `byte/word/long/q`
+* `devmem2`
 
-* Resources: interrupts, clocks, DMA, reset lines
+## Misc
 
+* don't use device managed alloc when mem is used outside device node
+* `errno`
+* each process has 1/4 mem allocated for kernel, rest for userpace, by MMU
+* string compare for compatible strings are expensive, so if we need slightly
+  different behavior for different devices, we use `.data` field in `of_device_id`
+* uboot: `dm tree`
+* vendor forks - good for PoCs, bad for other stuff
+* gpl v3 is gpl v2 rewritten by lawyers for lawyers
+* `scripts/get_maintainer.pl`
+* `dtc -I fs /sys/firmware/devicetree/base`
+
+## The Linux Kernel
+
+* kernel provides portable, arch and hw independent api, handles concurrency
+* `/proc` - operating system related (processes, memory man, parameters)
+* `/sys` - tree of devices, hardware representation
+* kernel to userspace api/abi is stable (so that we can update the kernel)
+* `/proc` and `/sys` contents shouldn't change, only extend
+* internal kernel API/ABI(modules) is not stable
 
 ## Cross compilation
 
 ## Config
 
+* `b depends on a` - b not visible until a enabled
+* `a select b ` - select b is a is selected
+* `scripts/diffconfig`
 * set arch, i.e. `ARCH=arm`
 * set `CROSS_COMPILE` prefix
 * as make flags or exported
@@ -20,8 +48,9 @@ making this available under Creative Commons BY-SA.
 * `CONFIG_LOCALVERSION=-my-subversion`
 
 * `arch/<arch>/boot/Image` - uncompressed bootable image
-* `arch/<arch>/boot/*Image*` - spcific compressed img format, i.e. zImage for ARM
+* `arch/<arch>/boot/*Image*` - self-decompressing img format, i.e. zImage for ARM
 * `arch/<arch>/boot/vmlinux` - raw uncompressed image in ELF, useful for debugging
+* `/boot/System.map*` - symbols for debugging purposes
 
 ## Modules
 
@@ -31,7 +60,6 @@ making this available under Creative Commons BY-SA.
     * Use `initrd`
     * Implement support for disk file system
 
-* `modules.alias` - udev aliases to devices specified in `<driver-name>_devices.c` TODO SPECIFY
 * `lsmod` loads chronologically. FOR CHECKING IF LOADED AND/OR USED BY STH ELSE.
     * equivalent of `cat /proc/modules`
 * `modinfo <module_name>` for modules in `/lib/modules`
@@ -49,6 +77,7 @@ making this available under Creative Commons BY-SA.
 ```bash
 # optional, useful for upgrading .config from an eariler release
 # or after editing .config manually
+# will prompt for new stuff!
 make oldconfig
 
 # compile
@@ -57,7 +86,7 @@ make
 # installs for the host be default
 # affected files:
     # /boot/vmlinuz-<version>, same as the one in arch/<arch>/boot
-    # /boot/System.map-<version>, symbol addresses
+    # /boot/System.map-<version>, symbol addresses for debugging
     # /boot/config-<version>
 sudo make install
 
@@ -103,8 +132,13 @@ endif
 
 ## Device tree
 
-* phandle, `<&node1>` - points to another node
-* `<1 3 4 5>` - a tuple containing four cells
+* `of_` (open firmware) functions usually read the device trees
+* `/sys/firmware/devicetree/base/model` - get the device name :p
+* fully generic -  dt schema repo
+* subsystem specific - dt schema repo + `Documentation/device-tree/bindings`
+* `simple-bus` - bus where all sub-nodes are memory mapped
+* `make dtbs_check`
+* TODO dirs, what-is-where
 * `Documentation/device-tree/bindings`
 * Device Tree Bindings → documents that each specify
 how a piece of HW should be described
@@ -112,54 +146,71 @@ how a piece of HW should be described
   number of standard properties.
 * `struct of_device_id[]` - list of supported `compatible` strings
 
+* `#adress-cells` - numbers of cells needed to carry the address
+* `#size-cells`
+  * 0 - one address
+  * 1 - address range
+  * 2 - multiple address ranges
+
 ## Device model
 
-* Driver interfaces with:
-  * a **framework** that exposes it to the hw in a generic way
-  * a **bus infrastructure** that detects the hw and communicates w/ it.
+Types of devices:
+* Network (`ip a`)
+* Block (`/dev`)
+* Character (`/dev`)
+  * `struct file_operations` - open, close, r/w, ioctl
+  * `struct file`
+    * `void *private_data`
+    * the user buffer cannot be dereferenced
+    * use `get_user`, `put_user`, `copy_to_user`, `copy_from_user` instead
+* Internal sysfs devices (`pinctrl`, IIO)
+
 * 3 main `struct`s:
     * `bus_type` - reps a particular bus type (USB, PCI, I2C)
-    * `device_driver` (a clumsy inheritance for more specialized versions)
-    * `device` - reps a device connected to a bus (more clumsy inheritance)
+    * `device_driver` (software!)
+    * `device` - reps hardware to given bus, handled by given driver
+      (sometimes has a slightly different name, i.e. `usb_interface`)
+    * uses inheritance to create specialized `device_driver` and `device`
+      structs for each subsystem
+* for a USB-ethernet connector:
+  * usb bus
+  * ethernet usb device driver driver
+  * "TP-LINK FOOUSB adapter" device
+  * ethernet framework
+* in code, `module_init` simply registers the created `struct device`
+
+### How (some) devices are identified
+
+* device is plugged in
+* bus driver sends MODALIAS string, decoded by udev
+  (vendor, product id, device id, additional characteristic)
+* `kmod` will load the appropriate module based on `modules.alias`
+  (compiled by `make modules_install`)
+* in driver, the alias is created by (`MODULE_DEVICE_TABLE()`)
+* when there is a match between the alias and driver's `MODULE_DEVICE_TABLE`,
+  the core/bus driver **probes** the device, the `probe` function is called for each device
+
+### USB example
+
+The core driver (`drivers/usb/core`) talks to:
+*
+* USB device drivers (everywhere depending on class, i.e. `drivers/net/usb`)
+* adapter drivers (`drivers/usb/host`), i.e. USB2.0 (`dwc2`) and USB3.0 (`dwc3`)
+  * they report IDs that aliases are based to identify the device driver and
+    adapter driver needed
+  * host controller(hardware components that interface between the bus and the
+    system) drivers are implemented as parts of adapter drivers, expose
+    generic bus functionality
+```
+PCI adapter -> PCI Core -> PCI Dev. Driver + USB Adapter Driver -> USB Core
+```
+
 * these are kernel-only. in userspace, `sysfs`.
   * /sys/bus
   * /sys/devices
-  * /sys/class
+  * `/sys/class` - i.e. `net`, `input`, `block`
+  * used by `udev`
 
-
-### Bus drivers
-
-Responsible for:
-* basically a bunch of non-specialized stuff that device drivers are not.
-* Registering the bus type (`struct bus_type`)
-* Registration of adapter drivers
-* (Possibly) able to detect the connected devices providing a
-  communication mechanism with the devices
-* Allowing the registration of device drivers
-* Managing the devices TODO
-* Matching the device drivers against the devices detected by the adapter
-  drivers
-* API to implement both adapter drivers and device drivers
-* Defining driver and device specific structures, mainly struct usb_driver and
-  struct usb_interface
-
-
-* A controller is a hardware component responsible for managing the operation
-  of a specific device. I.e. disk, USB or controller, etc.
-* An adapter is a hardware or software component that allows two different
-  systems or components to work together.
-  * if hardware, it may require a driver.
-
-## I2C
-
-* Adapter (master, controller, bus :') )
-    * initiates transactions
-    * usually one
-    * no address
-* Client (slave, device)
-    * responds to transactions
-    * many per bus
-    * 7 bit address in hardware
 
 
 ## Kernel frameworks for device drivers
@@ -224,7 +275,8 @@ Responsible for:
 
 ### ?
 
-* `platform_get_resource` - retrieve a device physical address from the dt.
+* `platform_get_resource(pdev, ..)` - retrieve a device physical address or IRQ from the dt.
+
 
 ### Process, thread, task
 
@@ -327,4 +379,15 @@ be in deep trouble
       for when something is broken before tty layer
     * on non-ARM, SERIAL_EARLYCON
 
-## Power
+## Delete me :')
+
+### I2C
+
+* Adapter (master, controller, bus :') )
+    * initiates transactions
+    * usually one
+    * no address
+* Client (slave, device)
+    * responds to transactions
+    * many per bus
+    * 7 bit address in hardware
