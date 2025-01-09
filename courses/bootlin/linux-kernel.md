@@ -5,6 +5,28 @@
   * not suitable for DMA
   * for
 
+## Debug
+
+* `dev_err_ratelimited()` - print up to x times based on burst values, then stop
+* `#define DEBUG` or `ccflags-$(CONFIG_DRIVER) += DDEBUG`
+* `CONFIG_DYNAMIC_DEBUG` - can be enabled/disabled:
+  * per file
+  * per module
+  * per message
+  * per line
+
+## DMA
+
+* coherent mapping - more expensive, but less hassle with cache handling.
+  * we need a virt address for CPU and another one for controller in case
+    there is IO-MMU in between
+  * typically allocated once and used for enitre
+* streaming buffer - uses another buffer, i.e. user buffer
+
+* `dma-mapping` - maps buffers at physical addresses. enough for external devices
+* `dmaengine` - abstracts controllers (start/stop transfer, queue, configure)
+*
+
 ## IO mem
 
 * `request_mem_region`/`release_mem_region`
