@@ -1,10 +1,5 @@
 # Super user
 
-New shortcuts and features to memorize and learn regularly. If it's here it
-hasn't become "obvious", an instinct, yet.
-
-
-
 ## gpg
 
 ## fzf
@@ -13,30 +8,6 @@ hasn't become "obvious", an instinct, yet.
 * alt+c - cd to selected dir
 * ctrl+t
 
-## Lua
-
-* `"~=" == "!="`
-
-```lua
-local nums = { 1, 2, 3 }
-table.insert(nums, 4)
-for i = 1, #nums do --[['#' - number of colors ]] end
-
-local dict = {
-  ["key1"] = 1,
-  ["key2"] = 2
-}
-print(dict["key1"])
-for k,d in pairs(dict) do end
-dict["key1"] = nil
-dict["key2"] = 3
-
-math.abs(-1)
-math.ceil(1.2) -- 2
-math.floor(1.2) -- 1
-
-require("mymodlue")
-```
 
 ## misc
 
@@ -51,17 +22,22 @@ require("mymodlue")
 
 ## Unix
 
+* `find . -type f -name '*.gz' -exec rm {} + `
+* `find -name "*.sh" -exec chmod u+x {} \;`
+* `-iname`, `-user`/`-perm`, `-perm`, `-size +1G`
+* `find . -name "*.md" -exec grep "foo" {} +`
+* `-exec`
+  * `+` - will append files to a list, run command once
+  * `\;` - send single command for each command
+
 * `fdisk` exists.
 * `whereis` exists
 * `man file-hierarchy` exists.
 * cat split-me.txt | tr ";" "\n"
 * `|&` for piping 0 1 and 2
 * `mkdir -p music/{rock/{punk,goth},classical/{baroque,early}}`
-* `find . -type f -name '*.gz' -exec rm {} + `
-* `chmod` files recursively: `find -name "*.sh" -exec chmod u+x {} \;`
 * `ls -1A`
 * `grep -l`, `grep -n`
-* `find . -name "*.md" -exec grep "foo" {} +`
 
 ## Markdown
 
