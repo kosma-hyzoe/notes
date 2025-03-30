@@ -3,7 +3,6 @@
 * `vmalloc`
   * not physically contiguos
   * not suitable for DMA
-  * for
 
 ## Debug
 
