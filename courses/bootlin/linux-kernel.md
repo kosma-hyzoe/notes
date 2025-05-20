@@ -1,5 +1,6 @@
 # Linux Device Drivers
 
+* `kmalloc` - fixed offset, kernel logical addresses
 * `vmalloc`
   * not physically contiguos
   * not suitable for DMA
