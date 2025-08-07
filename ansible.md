@@ -11,12 +11,6 @@
 
 * validate
 
-## inventory
-
-```cfg
-[home]
-homelab kosma@192.168.0.2
-```
 
 ## `ansible.cfg`
 
