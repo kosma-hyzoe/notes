@@ -6,8 +6,10 @@
 * `#/*` - go to previous/next occurence of word
 * `u/<c-r>` - undo/redo
 * `d/c<m>` delete/change(delete and start insert mode) <m>
-* `<c-v>`, `<c-i>` - block select
-* c-o
+* `<c-v>` (`<c-i>`) - block select
+* `<c-o>` - previous cursor position
+* `<c-v>` - select line
+
 ### Often useful
 
 ### Sometimes useful

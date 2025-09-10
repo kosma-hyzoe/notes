@@ -1,3 +1,3 @@
 # Notes
 
-My self-education notes. Use at your own risk! 
+My self-education notes. Use at your own risk!
