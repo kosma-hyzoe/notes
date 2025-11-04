@@ -12,6 +12,7 @@ rand() % 100  // <0,99>, int
 a + rand() % (b + 1 - a); // <a, b>, int
 cout << (char) 'a' + rand()%('z' + 1 - 'a'); // print chars
 ```
+
 * `<cmath>`
   * `pow(x, 2)`
   * `sqrt`
@@ -79,7 +80,6 @@ int D[w][k] {2,3,8,6,
   * `cout << fixed // print 0 as 0.0`
 
 * `system("PAUSE"); // "Press any key to continue..."`
-* `cin.ignore() // ignore char`
 * `cin.ignore() // ignore one char`
 * `cin.ignore(n, del) // up to n chars or until encounters delimeter`
 * operandy - argumenty

@@ -9,6 +9,7 @@
 * `<c-v>` (`<c-i>`) - block select
 * `<c-o>` - previous cursor position
 * `<c-v>` - select line
+* `%`/`d` - create file/directory
 
 ### Often useful
 
