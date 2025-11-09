@@ -23,7 +23,7 @@ cout << (char) 'a' + rand()%('z' + 1 - 'a'); // print chars
     * `cout << fixed // print 0 as 0.0`
 
 
-## Pliki
+## Pliki / strumienie
 
 ```
 ifstream if;
@@ -33,15 +33,12 @@ if (!f.is_open()) return 1;
 while(!f.eof());
 f.get(c); f.put(c);
 getline(f, str);
+* `cin.ignore(n, del) // up to n chars or until encounters delimeter`
+* `cin >> x >> y >> z;` - wczytaj wartości danych o nazwach x, y, z
+* `std::cout << "The value of x is: " << x << std::endl;`
+* `cin.ignore() // ignore one char`
 ```
 
-## Operatory
-
-* `|` - or
-* `^` - xor
-* `~` - negacja
-* `,` - :P
-* `size_of`
 
 ## Rzutowanie
 
@@ -70,18 +67,23 @@ int D[w][k] {2,3,8,6,
 
 ## Misc
 
-* `<cmath>`
-  * `pow(x, 2)`
-  * `sqrt`
-  * `abs`
 * `<iomanip>`
   * `seprecision(1) // 1.1`
   * `setw(5)`
   * `cout << fixed // print 0 as 0.0`
 
 * `system("PAUSE"); // "Press any key to continue..."`
-* `cin.ignore() // ignore one char`
-* `cin.ignore(n, del) // up to n chars or until encounters delimeter`
-* operandy - argumenty
-* `cin >> x >> y >> z;` - wczytaj wartości danych o nazwach x, y, z
-* `std::cout << "The value of x is: " << x << std::endl;`
+* Namescape
+
+## Klasy
+
+`virtual void func(int, int) = 0;` - pure virtual, must be defined
+
+```cpp
+Class VectorContainer : public Vecotr { // public -> is subclass of
+  Vector v;
+public:
+  double &operator[]
+
+};
+```

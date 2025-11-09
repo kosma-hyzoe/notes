@@ -1,6 +1,12 @@
 ## General
+`ma`
+`'a` - jump to mark line
+`<backquote>a` - jump to mark line/col
+`d'a` - delete from current line to `'a`
+`:marks aB` - list marks a, B
+`:delmarks`
 
-* `yinq` - `[Y]nk [I]nside [N]ext [']quote`
+* `yinq` - `[Y]ank [I]nside [N]ext [']quote`
 *  `ci'`  - `[C]hange [I]nside [']quote`
 * `saiw)` - `[S]urround [A]dd [I]nner [W]ord [)]Paren`
 * `sd'`   - `[S]urround [D]elete [']quotes`

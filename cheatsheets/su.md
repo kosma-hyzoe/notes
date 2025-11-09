@@ -1,6 +1,12 @@
 # Super user
 
-## gpg
+* `man readline`
+* `less` for large files
+
+
+## bash-not-zsh
+* meta+a - beg of line
+* meta+. - !$
 
 ## fzf
 
