@@ -77,13 +77,24 @@ int D[w][k] {2,3,8,6,
 
 ## Klasy
 
-`virtual void func(int, int) = 0;` - pure virtual, must be defined
+* `virtual void func(int, int) = 0;` - pure virtual, must be defined
+* explicit overriding not enforced, recommended
+* `enum class Kind { circle, triangle, smiley }` / `switch (k) case Kind::circle`
+* `if (Smiley* p = dynamic_cast<Smiley*>(ps))` - ptr or nullptr
+* `Obj myO;` - stack alloc, auto handled in scope
+* `Obj myO = new Obj();` - heap allock, dynamic lifetime and larger size but
+  must be explicitly remove
+
+## Wskaźniki i refy
+
+* `unique_ptr<Shape>` ~= ` Shape *`, deletes objects when out of scope
 
 ```cpp
-Class VectorContainer : public Vecotr { // public -> is subclass of
+Class VectorContainer : public Vector { // public -> is subclass of
+};
   Vector v;
 public:
-  double &operator[]
-
+  double &operator[](int) {return v[i]; } // describes acces thru []
+  double &operator+(Vector v1, Vector v2) { /*... */ } // describes acces thru []
 };
 ```
