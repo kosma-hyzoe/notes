@@ -98,3 +98,45 @@ public:
   double &operator+(Vector v1, Vector v2) { /*... */ } // describes acces thru []
 };
 ```
+
+## copy/move
+
+There are five situations in which an object is copied or moved:
+
+*  As the source of an assignment
+*  As an object initializer
+*  As a function argument
+*  As a function return value
+*  As an exception
+
+In all cases, the copy or move constructor will be applied (unless it can be
+optimized away). In addition to the initialization of named objects and objects on the free
+store, constructors are used to initialize temporary objects and to implement
+explicit type conversion.
+
+```cpp
+class Vector {
+     Vector(const Vector& a);               // copy constructor
+     Vector& operator=(const Vector& a);    // copy assignment
+     Vector(Vector&& a);                    // move constructor
+     Vector& operator=(Vector&& a);         // move assignment
+     Y(const Y&) = default;
+     Y(const Y&&) = default;
+
+Vector::Vector(const Vector& a)     // copy constructor
+    :elem{new double[a.sz]},        // allocate space for elements
+    sz{a.sz}
+{
+    for (int i=0; i!=sz; ++i)      // copy elements
+          elem[i] = a.elem[i];
+}
+
+Vector::Vector(Vector&& a)
+    :elem{a.elem},          // "grab the elements" from a // TODO what??
+    sz{a.sz}
+{
+    a.elem = nullptr;       // now a has no elements
+    a.sz = 0;
+}
+```
+
