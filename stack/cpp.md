@@ -1,6 +1,6 @@
-## Pliki
+## 0
 
-## Generowanie liczb losowych
+### Generowanie liczb losowych
 
 ```cpp
 #include <cstdlib>
@@ -23,7 +23,7 @@ cout << (char) 'a' + rand()%('z' + 1 - 'a'); // print chars
     * `cout << fixed // print 0 as 0.0`
 
 
-## Pliki / strumienie
+### Pliki / strumienie
 
 ```
 ifstream if;
@@ -40,7 +40,7 @@ getline(f, str);
 ```
 
 
-## Rzutowanie
+### Rzutowanie
 
 * `static_cast` - rzutowanie typu sprawdzane na etapie kompilacji, stosunkowo
   bezpieczne.
@@ -54,7 +54,7 @@ getline(f, str);
   powrotu do pierwotnej wartości. Wykorzystywane praktycznie jedynie przy
   wykonywaniu niskopoziomowych operacji na sprzęcie - bardzo niebezpieczne.
 
-## Tablice
+### Tablice
 
 ```
 int foo[1][2] const int w=3, k=4;
@@ -65,7 +65,7 @@ int D[w][k] {2,3,8,6,
              7,1,12,5}; // C++11
 ```
 
-## Misc
+### Misc
 
 * `<iomanip>`
   * `seprecision(1) // 1.1`
@@ -75,7 +75,7 @@ int D[w][k] {2,3,8,6,
 * `system("PAUSE"); // "Press any key to continue..."`
 * Namescape
 
-## Klasy
+### Klasy
 
 * `virtual void func(int, int) = 0;` - pure virtual, must be defined
 * explicit overriding not enforced, recommended
@@ -85,7 +85,7 @@ int D[w][k] {2,3,8,6,
 * `Obj myO = new Obj();` - heap allock, dynamic lifetime and larger size but
   must be explicitly remove
 
-## Wskaźniki i refy
+### Wskaźniki i refy
 
 * `unique_ptr<Shape>` ~= ` Shape *`, deletes objects when out of scope
 
@@ -98,6 +98,8 @@ public:
   double &operator+(Vector v1, Vector v2) { /*... */ } // describes acces thru []
 };
 ```
+
+## 4
 
 ## copy/move
 
@@ -139,4 +141,18 @@ Vector::Vector(Vector&& a)
     a.sz = 0;
 }
 ```
+## Explicit
 
+```cpp
+class Vector {
+public:
+     explicit Vector(int s);      // no implicit conversion from int to Vector
+};
+
+Vector v1(7);    // OK: v1 has 7 elements
+Vector v2 = 7;   // error: no implicit conversion from int to Vector
+```
+
+## Misc
+
+* `if (Smiley* p = dynamic_cast<Smiley*>(ps))` - is this pointer `type_of`?
