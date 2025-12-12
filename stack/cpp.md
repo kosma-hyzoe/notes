@@ -1,5 +1,15 @@
 ## 0
 
+### misc
+
+* `endl` is slow, use `\n` or `printLn`
+* Rule of 0?
+* `shared_ptr` is code smell?
+* faster to cp small objects than use const refs?
+* `extern "C"` ?
+* `vec.at(idx)`
+* `std::move_if_noexcept`
+
 ### Generowanie liczb losowych
 
 ```cpp
