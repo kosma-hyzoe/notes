@@ -72,7 +72,9 @@ void appendCar(CarNode*& head, const string& brand,
 
     cur->next = new CarNode{car, nullptr};
 }
-
+/*
+Car car; cout << "\tBrand: "; cin >> car.brand; cout << "\tPrice: "; cin >> car.price; cout << "\tMileage: "; cin >> car.mileage; cout << "\tYear: "; cin >> car.year;
+*/
 Car inputCar() {
     cout << "Input a new car: \n";
     Car car;
@@ -87,6 +89,9 @@ Car inputCar() {
     return car;
 }
 
+/*
+if (cur && cur->next) cur->next = new CarNode{car, cur->next};
+*/
 void insertCarBeforeNext(CarNode*& cur, const string& brand,
             double price, int mileage, int year) {
     Car car{brand, price, mileage, year};
@@ -118,6 +123,10 @@ void readCarsFromFile(CarNode*& head, const Path& path) {
     }
 }
 
+/*
+cout << "==" << desc << "==\n";
+for (const CarNode* cur = head; cur != nullptr; cur = cur->next) cout << "Brand: " << cur->car.brand << '\t' << "Price: " << cur->car.price << '\t' << "Mileage: " << cur->car.mileage << '\t' << "Year: " << cur->car.year << '\n';
+*/
 void printCarList(const CarNode* head, const string desc = "") {
     cout << "==" << desc << "==\n";
     for (const CarNode* cur = head; cur != nullptr; cur = cur->next)
@@ -143,21 +152,8 @@ int countElements(CarNode*& head) {
     return count;
 }
 
-// ... to funkcja z punktu 2, ale robi też inne rzeczy ;)
-int run() {
-    CarNode* head = nullptr;
-    string filename;
-    cout << "TSV Filename: ";
-        cin >> filename;
-    Path path{filename};
-    readCarsFromFile(head, path);
-    if (!head)
-        return -1;
-
-    printCarList(head, "AFTER READING FROM FILE");
-
+int funckjaZPunktu2(CarNode*& head) {
     /* 2a */
-
     CarNode* cur = head;
 
     int mileageOfPreLastCar = -1;
@@ -181,16 +177,18 @@ int run() {
     int countMileageLessThanPreLast = 0;
     int countYearLessThanMeanYear = 0;
 
-
     while (cur && cur->next) {
         bool inserted = false;
         if (!inserted && cur->next->car.mileage < mileageOfPreLastCar) {
             countMileageLessThanPreLast++;
 
             if (countMileageLessThanPreLast % 2 == 0) {
-                Car car = inputCar();
-                insertCarBeforeNext(cur, car.brand, car.price, car.mileage, car.year);
-                printCarList(head, "AFTER INSERTING AFTER CAR WITH LESSER MILEAGE");
+                // input, insert, print
+                Car car; cout << "\tBrand: "; cin >> car.brand; cout << "\tPrice: "; cin >> car.price; cout << "\tMileage: "; cin >> car.mileage; cout << "\tYear: "; cin >> car.year;
+                if (cur && cur->next) cur->next = new CarNode{car, cur->next};
+                cout << "==AFTER INSERTING AFTER CAR WITH LESSER MILEAGE==\n";
+                for (const CarNode* cur = head; cur != nullptr; cur = cur->next) cout << "Brand: " << cur->car.brand << '\t' << "Price: " << cur->car.price << '\t' << "Mileage: " << cur->car.mileage << '\t' << "Year: " << cur->car.year << '\n';
+                //
                 cur = cur->next;
                 inserted = true;
             }
@@ -199,9 +197,12 @@ int run() {
             countYearLessThanMeanYear++;
 
             if (countYearLessThanMeanYear % 3 == 0) {
-                Car car = inputCar();
-                insertCarBeforeNext(cur, car.brand, car.price, car.mileage, car.year);
-                printCarList(head, "AFTER INSERTING AFTER CAR WITH MORE RECENT YEAR");
+                // input, insert, print
+                Car car; cout << "\tBrand: "; cin >> car.brand; cout << "\tPrice: "; cin >> car.price; cout << "\tMileage: "; cin >> car.mileage; cout << "\tYear: "; cin >> car.year;
+                if (cur && cur->next) cur->next = new CarNode{car, cur->next};
+                cout << "==AFTER INSERTING AFTER CAR WITH MORE RECENT YEAR==\n";
+                for (const CarNode* cur = head; cur != nullptr; cur = cur->next) cout << "Brand: " << cur->car.brand << '\t' << "Price: " << cur->car.price << '\t' << "Mileage: " << cur->car.mileage << '\t' << "Year: " << cur->car.year << '\n';
+                //
                 cur = cur->next;
                 inserted = true;
             }
@@ -211,7 +212,6 @@ int run() {
     }
 
     /* 2b */
-
     double maxPrice;
     cout << "Max price: ";
     cin >> maxPrice;
@@ -224,10 +224,8 @@ int run() {
     while (cur && cur->car.price <= maxPrice)
         cur = cur->next;
 
-    if (!cur || !cur->next) {
-        cleanup(head);
-        return 0;
-    }
+    if (!cur || !cur->next)
+        return -1;
 
     int count = 0;
     meanYear = 0;
@@ -256,11 +254,26 @@ int run() {
             nullptr
         };
     cur->next = carNodeTmp;
+    return 0;
+}
+int run() {
+    CarNode* head = nullptr;
+    string filename;
+    cout << "TSV Filename: ";
+        cin >> filename;
+    Path path{filename};
+    readCarsFromFile(head, path);
+    if (!head)
+        return -1;
 
-    printCarList(head, "AFTER REMOVING CARS AFTER MAX PRICE AND ADDING MEAN ONE");
+    printCarList(head, "AFTER READING FROM FILE");
+
+    int ret = funckjaZPunktu2(head);
+    if (ret == 0)
+        printCarList(head, "AFTER REMOVING CARS AFTER MAX PRICE AND ADDING MEAN ONE");
 
     cleanup(head);
-    return 0;
+    return ret;
 }
 } // namespace hyzorek_p2
 
