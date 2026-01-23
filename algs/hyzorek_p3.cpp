@@ -14,32 +14,45 @@
 #include <sstream>
 #include <set>
 #include <vector>
-#include <limits>
+#include <queue>
+#include <algorithm>
 
 namespace hyzorek_p3 {
-using std::string;
-using std::set;
-using std::vector;
 using std::cout;
-using std::cin;
-using std::getline;
-using std::find;
-
+using std::getline; using std::string;
+using std::set; using std::vector; using std::priority_queue; using std::pair;
+using std::greater; using std::reverse;
 using Path = std::filesystem::path;
-using AdjacencyList = vector<vector<std::pair<int,int>>>;
 
+
+// adj[i] = nbrsOfNodeI; nbrsOfNodeI = [(nbr1, w1), (nbr2, w2), ...]
+using AdjacencyList = vector<vector<pair<int, int>>>;
+int adjSize;
+
+/* i.e.
+* 5
+* node nbrOfNode weight
+* 0 1 7
+* 0 2 3
+*
+* 1 3 2
+*
+* 2 1 4
+* 2 3 8
+* 2 4 2
+*
+* 3 4 5
+*/
 AdjacencyList readAdjFromFile(const Path& path) {
     std::string line;
     std::ifstream in{path};
-
     if (!in)
         return {};
 
     getline(in, line);
     std::istringstream issTmp{line};
-    int size;
-    issTmp >> size;
-    AdjacencyList adj(size);
+    issTmp >> adjSize;
+    AdjacencyList adj(adjSize);
 
     while (getline(in, line)) {
         std::istringstream iss{line};
@@ -60,39 +73,62 @@ void printAdj(vector<set<int>>& adj) {
     }
 }
 
-int findShortest(vector<set<int>> adj, int from, int to) {
+using State = std::pair<int, int>; // distance, node
+vector<int> dijkstra(const AdjacencyList& adj, int from, int to) {
+    vector<int> dist(adj.size(), -1);
+    vector<int> pred(adj.size(), -1);
+
+    priority_queue<State, vector<State>, greater<> > pq; pq.push({0, from});
+    while (!pq.empty()) {
+        auto [w, cur] = pq.top(); pq.pop();
+        if (dist[cur] != -1)
+            continue;
+
+        dist[cur] = w;
+        if (cur == to)
+            break;
+        for (auto [nbr, wn]: adj[cur]) {
+            if (dist[nbr] == -1) {
+                pq.push({w + wn, nbr});
+                if (pred[nbr] == -1)
+                    pred[nbr] = cur;
+            }
+        }
+    }
+
+    vector<int> way;
+    if (dist[to] != -1) {
+        for (int nbr = to; nbr != -1; nbr = pred[nbr])
+            way.push_back(nbr);
+        reverse(way.begin(), way.end());
+    }
+
+    return way;
 }
 
-vector<int> shortestWayByDjikstra(vector<set<int>> adj, int from) {
-    // vector<int> dist(adj.size());
-    set<int> all;
-    for (auto set: adj)
-        for (auto elem: set)
-             all.insert(elem);
+void run(int from, int to) {
+    AdjacencyList adj = readAdjFromFile("adj");
+    vector<int> way = dijkstra(adj, from, to);
 
-    set<int> visited = {from}; // Q
-
-    // wybranie el. o najmniejszej odległości
-    for (int elem: all) {
-        if (adj.at(elem)
-
-
-    set<int> calculated; // S
-
-    return {};
-
-}
-
-int run() {
-    vector<set<int>> adj = readAdjFromFile("adj");
-    printAdj(adj);
-
-    return 0;
+    for (int i = 0; i < way.size(); i++) {
+        if (i == way.size() - 1)
+            cout << way[i] << '\n';
+        else
+            cout << way[i] << "-->";
+    }
 }
 
 } // namespace hyzorek_p3
 
-int main()
+int main(int argc, char* argv[])
 {
-    return hyzorek_p3::run();
+    int from = 0;
+    int to = 1;
+    if (argc == 3) {
+        from = std::stoi(argv[1]); // CPP11-ish, but simpler than from_chars
+        to = std::stoi(argv[2]);
+    }
+
+    hyzorek_p3::run(from, to);
+    return 0;
 }
