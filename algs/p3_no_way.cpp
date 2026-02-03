@@ -15,13 +15,13 @@
 #include <set>
 #include <vector>
 #include <queue>
-#include <algorithm>
+#include <limits>
 
 namespace hyzorek_p3 {
 using std::cout;
 using std::getline; using std::string;
 using std::set; using std::vector; using std::priority_queue; using std::pair;
-using std::greater; using std::reverse;
+using std::greater;
 using Path = std::filesystem::path;
 
 
@@ -57,8 +57,7 @@ AdjacencyList readAdjFromFile(const Path& path) {
     while (getline(in, line)) {
         std::istringstream iss{line};
         int x, y, w;
-        if (!(iss >> x >> y >> w))
-            continue;
+        iss >> x >> y >> w;
         adj[x].emplace_back(y, w);
         adj[y].emplace_back(x, w);
     }
@@ -75,48 +74,31 @@ void printAdj(vector<set<int>>& adj) {
 }
 
 using State = std::pair<int, int>; // distance, node
-vector<int> dijkstra(const AdjacencyList& adj, int from, int to) {
-    vector<int> dist(adj.size(), -1);
-    vector<int> pred(adj.size(), -1);
+vector<int> dijkstra(const AdjacencyList& adj, int from) {
+    vector<int> shortest(adj.size(), -1);
 
-    priority_queue<State, vector<State>, greater<> > pq; pq.push({0, from});
+    priority_queue<State, vector<State>, greater<> > pq;
+    pq.push({0, from});
     while (!pq.empty()) {
         auto [w, cur] = pq.top(); pq.pop();
-        if (dist[cur] != -1)
+        if (shortest[cur] != -1)
             continue;
+        shortest[cur] = w;
 
-        dist[cur] = w;
-        if (cur == to)
-            break;
-        for (auto [nbr, wn]: adj[cur]) {
-            if (dist[nbr] == -1) {
+        for (auto [nbr, wn]: adj[cur])
+            if (shortest[nbr] == -1)
                 pq.push({w + wn, nbr});
-                if (pred[nbr] == -1)
-                    pred[nbr] = cur;
-            }
-        }
     }
 
-    vector<int> way;
-    if (dist[to] != -1) {
-        for (int nbr = to; nbr != -1; nbr = pred[nbr])
-            way.push_back(nbr);
-        reverse(way.begin(), way.end());
-    }
-
-    return way;
+    return shortest;
 }
 
-void run(int from, int to) {
+void run(int from) {
     AdjacencyList adj = readAdjFromFile("adj");
-    vector<int> way = dijkstra(adj, from, to);
+    vector<int> way = dijkstra(adj, from);
 
-    for (int i = 0; i < way.size(); i++) {
-        if (i == way.size() - 1)
-            cout << way[i] << '\n';
-        else
-            cout << way[i] << "-->";
-    }
+    for (int i = 0; i < way.size(); i++)
+            cout << i << ": " << way[i] << '\n';
 }
 
 } // namespace hyzorek_p3
@@ -124,12 +106,9 @@ void run(int from, int to) {
 int main(int argc, char* argv[])
 {
     int from = 0;
-    int to = 1;
-    if (argc == 3) {
+    if (argc == 3)
         from = std::stoi(argv[1]); // CPP11-ish, but simpler than from_chars
-        to = std::stoi(argv[2]);
-    }
 
-    hyzorek_p3::run(from, to);
+    hyzorek_p3::run(from);
     return 0;
 }
